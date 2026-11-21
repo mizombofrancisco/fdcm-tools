@@ -40,7 +40,7 @@
 <p>A ZIP of a file or folder named with the original name and a timestamp, so a backup never replaces another. <code>backup(path).restoreTo(dir)</code> extracts it (files with the same name in <code>dir</code> are replaced). <code>BackupScheduler</code> runs backups at a fixed rate.</p>
 <h2 id="snapshots-snapshotrepository-since-14">Snapshots — <code>SnapshotRepository</code> (since 1.4)<a class="anchor" href="#snapshots-snapshotrepository-since-14" aria-label="#">#</a></h2>
 <figure><a href="../../assets/diagrams/en/snapshots.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/snapshots.svg" alt="How a snapshot stores only new content, the repository folder and the WebDAV cloud" loading="lazy"></a><figcaption>How a snapshot stores only new content, the repository folder and the WebDAV cloud</figcaption></figure>
-<p>Incremental, deduplicated and optionally encrypted backups. Each <code>backup</code> records the whole folder as a <strong>snapshot</strong>, but only content the repository does not have yet is stored:</p>
+<p>Incremental, deduplicated and optionally encrypted backups. Each <code>backup</code> records the whole folder as a <strong>snapshot</strong>, but only content the repository does not have yet is stored. Since 2.0.3 the operations on one open repository run one at a time (a backup and a <code>delete</code> from another thread wait for each other), so a progress callback must not wait for another thread that uses the same repository:</p>
 <pre><span class="lang">java</span><code><span class="tok-kw">try</span> (<span class="tok-type">SnapshotRepository</span> repo = <span class="tok-type">SnapshotRepository</span>.create(usb.resolve(<span class="tok-str">&quot;Backups&quot;</span>), <span class="tok-str">&quot;a long password&quot;</span>.toCharArray())) {
     <span class="tok-type">SnapshotRepository</span>.<span class="tok-type">Snapshot</span> s = repo.backup(docs, <span class="tok-str">&quot;Documents&quot;</span>, <span class="tok-kw">null</span>, <span class="tok-kw">null</span>);
     <span class="tok-type">System</span>.out.println(s.files() + <span class="tok-str">&quot; files, &quot;</span> + s.bytesAdded() + <span class="tok-str">&quot; new bytes&quot;</span>);
@@ -76,7 +76,7 @@
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.3</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

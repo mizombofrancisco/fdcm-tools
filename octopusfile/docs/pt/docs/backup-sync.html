@@ -40,7 +40,8 @@
 <p>Um ZIP de um ficheiro ou pasta, com o nome original e uma marca temporal, de modo que uma cópia de segurança nunca substitui outra. <code>backup(path).restoreTo(dir)</code> extrai-a (os ficheiros com o mesmo nome em <code>dir</code> são substituídos). <code>BackupScheduler</code> executa cópias de segurança a intervalos fixos.</p>
 <h2 id="instantâneos-snapshotrepository-desde-a-14">Instantâneos — <code>SnapshotRepository</code> (desde a 1.4)<a class="anchor" href="#instantâneos-snapshotrepository-desde-a-14" aria-label="#">#</a></h2>
 <figure><a href="../../assets/diagrams/pt/snapshots.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/snapshots.svg" alt="Como um instantâneo só guarda conteúdo novo, a pasta do repositório e a nuvem WebDAV" loading="lazy"></a><figcaption>Como um instantâneo só guarda conteúdo novo, a pasta do repositório e a nuvem WebDAV</figcaption></figure>
-<p>Cópias de segurança incrementais, sem duplicados e, se quiser, cifradas. Cada <code>backup</code> regista a pasta inteira como um <strong>instantâneo</strong> (snapshot), mas só guarda o conteúdo que o repositório ainda não tem:</p>
+<p>Cópias de segurança incrementais, sem duplicados e, se quiser, cifradas. Cada <code>backup</code> regista a pasta inteira como um <strong>instantâneo</strong> (snapshot), mas só guarda o conteúdo que o repositório ainda não tem.</p>
+<p>Desde a 2.0.3, as operações sobre um repositório aberto correm uma de cada vez (uma cópia e um <code>delete</code> de outra thread esperam uma pela outra), por isso um callback de progresso não deve esperar por outra thread que use o mesmo repositório:</p>
 <pre><span class="lang">java</span><code><span class="tok-kw">try</span> (<span class="tok-type">SnapshotRepository</span> repo = <span class="tok-type">SnapshotRepository</span>.create(usb.resolve(<span class="tok-str">&quot;Backups&quot;</span>), <span class="tok-str">&quot;a long password&quot;</span>.toCharArray())) {
     <span class="tok-type">SnapshotRepository</span>.<span class="tok-type">Snapshot</span> s = repo.backup(docs, <span class="tok-str">&quot;Documents&quot;</span>, <span class="tok-kw">null</span>, <span class="tok-kw">null</span>);
     <span class="tok-type">System</span>.out.println(s.files() + <span class="tok-str">&quot; files, &quot;</span> + s.bytesAdded() + <span class="tok-str">&quot; new bytes&quot;</span>);
@@ -76,7 +77,7 @@
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.3</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>
