@@ -51,7 +51,7 @@ dav.upload(<span class="tok-type">Path</span>.of(<span class="tok-str">&quot;rep
 <h2 id="partilhas-de-rede-smb">Partilhas de rede (SMB)<a class="anchor" href="#partilhas-de-rede-smb" aria-label="#">#</a></h2>
 <pre><span class="lang">java</span><code><span class="tok-type">NetworkShares</span>.<span class="tok-type">Address</span> a = <span class="tok-type">NetworkShares</span>.parse(<span class="tok-str">&quot;\\\\nas\\photos&quot;</span>);   <span class="tok-com">// also //nas/photos, smb://ana@nas/photos</span>
 <span class="tok-type">Path</span> local = <span class="tok-type">NetworkShares</span>.connect(a, <span class="tok-str">&quot;ana&quot;</span>, <span class="tok-str">&quot;secret&quot;</span>.toCharArray());</code></pre>
-<p>É o sistema operativo que estabelece a ligação e o OctopusFile usa o caminho local que este produz: um caminho UNC no Windows (<code>net use</code> quando é indicado um utilizador), <code>gio mount</code> (GVfs) no Linux, <code>mount volume</code> no macOS. <code>connect</code> bloqueia até cerca de 40 s; chame-o fora da thread da interface. <code>isAvailable(address)</code> verifica sem ligar.</p>
+<p>É o sistema operativo que estabelece a ligação e o OctopusFile usa o caminho local que este produz: um caminho UNC no Windows (ligado com a API do Windows; sem utilizador, usa a sessão atual), <code>gio mount</code> (GVfs) no Linux, <code>mount volume</code> no macOS. A palavra-passe nunca vai numa linha de comandos. <code>connect</code> bloqueia até cerca de 40 s; chame-o fora da thread da interface. <code>isAvailable(address)</code> verifica sem ligar.</p>
 <h2 id="uma-interface-para-todos-storageprovider">Uma interface para todos — <code>StorageProvider</code><a class="anchor" href="#uma-interface-para-todos-storageprovider" aria-label="#">#</a></h2>
 <p><code>LocalDiskStorage</code>, <code>ExternalDevices</code>, <code>NetworkShareStorage</code>, <code>WebDavStorage</code> e <code>InMemoryBucketStorage</code> (para testes) implementam <code>StorageProvider</code>: <code>getName()</code>, <code>isAvailable()</code>, <code>openRead(path)</code>, <code>openWrite(path)</code>, <code>delete(path)</code>, <code>exists(path)</code>. <code>StorageRegistry</code> guarda os fornecedores por chave, pelo que é possível ligar os seus próprios (FTP, S3, …):</p>
 <pre><span class="lang">java</span><code><span class="tok-type">StorageRegistry</span> registry = <span class="tok-kw">new</span> <span class="tok-type">StorageRegistry</span>();
@@ -62,7 +62,7 @@ registry.register(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.0</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

@@ -34,6 +34,9 @@
 <div class="table-wrap"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>Support</td><td><strong>2 years</strong> from the release of 2.0.0: 2.0.x versions with bug and security fixes only — no new features, no API changes</td></tr><tr><td>API</td><td>no breaking change in the whole 2.x line; anything deprecated in 2.x is removed only in 3.0. A test (<code>ApiSignatureTest</code>) compares every public type, constructor, method and field with the frozen list <code>api/octopusfile-api.txt</code>, so a change cannot slip into a 2.0.x by accident</td></tr><tr><td>Java</td><td><strong>Java 17</strong> and newer; tested on Windows, Linux and macOS by the CI</td></tr><tr><td>Formats</td><td>everything written by 2.0 (vault, encrypted files, snapshot repositories, saved index) stays readable by every later version</td></tr><tr><td>Dependencies</td><td>none</td></tr><tr><td>Branches</td><td>new features continue on <code>main</code> (2.1, 2.2…); fixes for 2.0 go to the <code>lts/2.0</code> branch, created with 2.0.0</td></tr></tbody></table></div>
 <h2 id="phases">Phases<a class="anchor" href="#phases" aria-label="#">#</a></h2>
 <div class="table-wrap"><table><thead><tr><th>Phase</th><th>What</th><th>State</th></tr></thead><tbody><tr><td>2.0.0-alpha</td><td>API cleanup: removed classes, names, internal types out of the public API</td><td><strong>alpha.1 done</strong></td></tr><tr><td>2.0.0-beta</td><td><code>Transfer</code> (progress, cancel) for every long operation; snapshot repositories on WebDAV; one rule for errors</td><td><strong>beta.1 done</strong></td></tr><tr><td>2.0.0-rc</td><td>API frozen; tests of every file format with files written by 1.x; complete Javadoc; final migration guide</td><td><strong>rc.1 done</strong></td></tr><tr><td>2.0.0</td><td>release; start of the 2 years of support</td><td><strong>released 2026-11-21</strong></td></tr></tbody></table></div>
+<h2 id="20x-versions">2.0.x versions<a class="anchor" href="#20x-versions" aria-label="#">#</a></h2>
+<p>Fix versions of 2.0, built on the <code>lts/2.0</code> branch. Each one only fixes; the API stays exactly the same.</p>
+<div class="table-wrap"><table><thead><tr><th>Version</th><th>Date</th><th>What</th></tr></thead><tbody><tr><td>2.0.1</td><td>2026-11-21</td><td>14 fixes found while documenting every class: SMB password off the command line on Windows, the trash never loses a folder deleted only in part, safe <code>Vault.delete</code>/<code>rename</code>, <code>FileWatcher(Path)</code>, <code>CsvReader.readCsv</code> with quotes, and smaller ones (see the CHANGELOG)</td></tr></tbody></table></div>
 <h2 id="migrating-from-1x">Migrating from 1.x<a class="anchor" href="#migrating-from-1x" aria-label="#">#</a></h2>
 <p>Code that compiled on 1.4 without removal warnings needs only the renames below. To find the uses, compile against 1.4 with <code>-Xlint:removal</code>.</p>
 <p><strong>Removed</strong> (deprecated since 1.4):</p>
@@ -55,7 +58,7 @@
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.0</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

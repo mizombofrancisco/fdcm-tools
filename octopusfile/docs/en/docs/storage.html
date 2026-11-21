@@ -51,7 +51,7 @@ dav.upload(<span class="tok-type">Path</span>.of(<span class="tok-str">&quot;rep
 <h2 id="network-shares-smb">Network shares (SMB)<a class="anchor" href="#network-shares-smb" aria-label="#">#</a></h2>
 <pre><span class="lang">java</span><code><span class="tok-type">NetworkShares</span>.<span class="tok-type">Address</span> a = <span class="tok-type">NetworkShares</span>.parse(<span class="tok-str">&quot;\\\\nas\\photos&quot;</span>);   <span class="tok-com">// also //nas/photos, smb://ana@nas/photos</span>
 <span class="tok-type">Path</span> local = <span class="tok-type">NetworkShares</span>.connect(a, <span class="tok-str">&quot;ana&quot;</span>, <span class="tok-str">&quot;secret&quot;</span>.toCharArray());</code></pre>
-<p>The operating system makes the connection and OctopusFile uses the local path it produces: a UNC path on Windows (<code>net use</code> when a user is given), <code>gio mount</code> (GVfs) on Linux, <code>mount volume</code> on macOS. <code>connect</code> blocks for up to about 40 s; call it outside the UI thread. <code>isAvailable(address)</code> checks without connecting.</p>
+<p>The operating system makes the connection and OctopusFile uses the local path it produces: a UNC path on Windows (connected with the Windows API; with no user, the current session is used), <code>gio mount</code> (GVfs) on Linux, <code>mount volume</code> on macOS. The password never goes on a command line. <code>connect</code> blocks for up to about 40 s; call it outside the UI thread. <code>isAvailable(address)</code> checks without connecting.</p>
 <h2 id="one-interface-for-all-storageprovider">One interface for all — <code>StorageProvider</code><a class="anchor" href="#one-interface-for-all-storageprovider" aria-label="#">#</a></h2>
 <p><code>LocalDiskStorage</code>, <code>ExternalDevices</code>, <code>NetworkShareStorage</code>, <code>WebDavStorage</code> and <code>InMemoryBucketStorage</code> (for tests) implement <code>StorageProvider</code>: <code>getName()</code>, <code>isAvailable()</code>, <code>openRead(path)</code>, <code>openWrite(path)</code>, <code>delete(path)</code>, <code>exists(path)</code>. <code>StorageRegistry</code> keeps providers by key, so your own (FTP, S3, …) can be plugged in:</p>
 <pre><span class="lang">java</span><code><span class="tok-type">StorageRegistry</span> registry = <span class="tok-kw">new</span> <span class="tok-type">StorageRegistry</span>();
@@ -62,7 +62,7 @@ registry.register(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.0</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

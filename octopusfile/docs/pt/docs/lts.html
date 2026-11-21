@@ -34,6 +34,9 @@
 <div class="table-wrap"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>Suporte</td><td><strong>2 anos</strong> a contar da publicação da 2.0.0: versões 2.0.x só com correções de erros e de segurança — sem funcionalidades novas nem mudanças na API</td></tr><tr><td>API</td><td>nenhuma mudança incompatível em toda a linha 2.x; o que for marcado como obsoleto na 2.x só sai na 3.0. Um teste (<code>ApiSignatureTest</code>) compara cada tipo, construtor, método e campo públicos com a lista congelada <code>api/octopusfile-api.txt</code>, por isso uma mudança não entra numa 2.0.x por acidente</td></tr><tr><td>Java</td><td><strong>Java 17</strong> ou mais recente; testado em Windows, Linux e macOS pela CI</td></tr><tr><td>Formatos</td><td>tudo o que a 2.0 escrever (cofre, ficheiros cifrados, repositórios de instantâneos, índice guardado) continua legível por todas as versões seguintes</td></tr><tr><td>Dependências</td><td>nenhumas</td></tr><tr><td>Ramos</td><td>as funcionalidades novas continuam no <code>main</code> (2.1, 2.2…); as correções da 2.0 vão para o ramo <code>lts/2.0</code>, criado com a 2.0.0</td></tr></tbody></table></div>
 <h2 id="fases">Fases<a class="anchor" href="#fases" aria-label="#">#</a></h2>
 <div class="table-wrap"><table><thead><tr><th>Fase</th><th>O quê</th><th>Estado</th></tr></thead><tbody><tr><td>2.0.0-alpha</td><td>Limpeza da API: classes removidas, nomes, tipos internos fora da API pública</td><td><strong>alpha.1 feita</strong></td></tr><tr><td>2.0.0-beta</td><td><code>Transfer</code> (progresso, cancelar) em todas as operações demoradas; repositórios de instantâneos em WebDAV; uma regra única para os erros</td><td><strong>beta.1 feita</strong></td></tr><tr><td>2.0.0-rc</td><td>API congelada; testes de todos os formatos com ficheiros escritos pela 1.x; Javadoc completo; guia de migração final</td><td><strong>rc.1 feita</strong></td></tr><tr><td>2.0.0</td><td>publicação; início dos 2 anos de suporte</td><td><strong>publicada a 21/11/2026</strong></td></tr></tbody></table></div>
+<h2 id="versões-20x">Versões 2.0.x<a class="anchor" href="#versões-20x" aria-label="#">#</a></h2>
+<p>Versões de correção da 2.0, feitas no ramo <code>lts/2.0</code>. Cada uma só corrige; a API fica exatamente igual.</p>
+<div class="table-wrap"><table><thead><tr><th>Versão</th><th>Data</th><th>O quê</th></tr></thead><tbody><tr><td>2.0.1</td><td>21/11/2026</td><td>14 correções encontradas ao documentar todas as classes: palavra-passe SMB fora da linha de comandos no Windows, o Lixo nunca perde uma pasta apagada só em parte, <code>Vault.delete</code>/<code>rename</code> seguros, <code>FileWatcher(Path)</code>, <code>CsvReader.readCsv</code> com aspas, e outras menores (ver o CHANGELOG)</td></tr></tbody></table></div>
 <h2 id="migrar-da-1x">Migrar da 1.x<a class="anchor" href="#migrar-da-1x" aria-label="#">#</a></h2>
 <p>Código que compilava na 1.4 sem avisos de remoção só precisa das mudanças de nome abaixo. Para encontrar os usos, compile contra a 1.4 com <code>-Xlint:removal</code>.</p>
 <p><strong>Removido</strong> (obsoleto desde a 1.4):</p>
@@ -55,7 +58,7 @@
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.0</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>
