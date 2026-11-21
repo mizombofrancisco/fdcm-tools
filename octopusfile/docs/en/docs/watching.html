@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Docs</a> › Features</div>
 <h1>Watching folders</h1>
+<figure><a href="../../assets/diagrams/en/watching.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/watching.svg" alt="How the events of a watched folder reach your callbacks, and recursive watching with the module engine" loading="lazy"></a><figcaption>How the events of a watched folder reach your callbacks, and recursive watching with the module engine</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-kw">try</span> (<span class="tok-type">WatchOperation</span> w = <span class="tok-type">OctopusFile</span>.watch(<span class="tok-str">&quot;C:/Users/ana/Downloads&quot;</span>)
         .filterExtension(<span class="tok-str">&quot;pdf&quot;</span>)
         .onCreate(e -&gt; <span class="tok-type">System</span>.out.println(<span class="tok-str">&quot;new: &quot;</span> + e.path()))
@@ -37,13 +38,13 @@
     <span class="tok-com">// ... the watcher runs in the background until close()</span>
 }</code></pre>
 <p>Callbacks: <code>onCreate</code>, <code>onModify</code>, <code>onDelete</code>, <code>onEvent</code> (all), <code>onOverflow</code> (too many events at once — re-read the folder). Filters: <code>filterExtension(&quot;pdf&quot;)</code> or <code>filter(path -&gt; …)</code>. Each <code>FileEvent</code> has <code>path()</code>, <code>kind()</code> and <code>timestamp()</code>.</p>
-<p>Built on the JDK <code>WatchService</code>: one folder (not its subfolders) per watcher. Callbacks run on a watcher thread.</p>
+<p>Built on the JDK <code>WatchService</code>. The facade watches one folder (not its subfolders); to watch the subfolders too, use the module: <code>new FileWatcher().watch(dir, true, listener)</code> also registers the subfolders created later. Callbacks run on a watcher thread.</p>
 <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Examples compiled and run by <code>DocExamplesTest</code></span>
 <nav class="pager"><a href="backup-sync.html"><small>← Previous</small>Backup &amp; sync</a><a class="next" href="storage.html"><small>Next →</small>Storage</a></nav>
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Docs</a> › Start</div>
 <h1>Files: copy, move, delete, list, read, write</h1>
+<figure><a href="../../assets/diagrams/en/files-facade.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/files-facade.svg" alt="The OctopusFile facade: each call returns an operation object that does the work with a module class; failures become OctopusFileException" loading="lazy"></a><figcaption>The OctopusFile facade: each call returns an operation object that does the work with a module class; failures become OctopusFileException</figcaption></figure>
 <p><code>OctopusFile</code> is a fluent facade over the everyday file operations. Every method accepts a <code>String</code> or a <code>Path</code>.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">OctopusFile</span> octo = <span class="tok-type">OctopusFile</span>.of();
 
@@ -39,6 +40,7 @@ octo.write(dir.resolve(<span class="tok-str">&quot;notes.txt&quot;</span>)).appe
 octo.copy(dir.resolve(<span class="tok-str">&quot;notes.txt&quot;</span>)).to(dir.resolve(<span class="tok-str">&quot;backup/notes.txt&quot;</span>));      <span class="tok-com">// creates &quot;backup&quot;</span>
 octo.move(dir.resolve(<span class="tok-str">&quot;backup/notes.txt&quot;</span>)).to(dir.resolve(<span class="tok-str">&quot;archive/notes-old.txt&quot;</span>));</code></pre>
 <h2 id="listing">Listing<a class="anchor" href="#listing" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/listing.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/listing.svg" alt="How list(dir) reads a folder once, keeps, sorts and returns FileEntry records" loading="lazy"></a><figcaption>How list(dir) reads a folder once, keeps, sorts and returns FileEntry records</figcaption></figure>
 <p><code>list(...)</code> reads the attributes of every item <strong>once</strong>, together with the directory listing (one system call for the whole folder on Windows), so sorting and filtering never go back to the disk. 50 000 files are listed in about 0.2 s on a warm cache.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">List</span>&lt;<span class="tok-type">FileEntry</span>&gt; entries = octo.list(dir).includeDirectories().sortByName().entries();
 <span class="tok-kw">for</span> (<span class="tok-type">FileEntry</span> e : entries) {
@@ -48,19 +50,21 @@ octo.move(dir.resolve(<span class="tok-str">&quot;backup/notes.txt&quot;</span>)
 <span class="tok-type">List</span>&lt;<span class="tok-type">Path</span>&gt; texts = octo.list(dir).filter(<span class="tok-kw">new</span> <span class="tok-type">TypeFilter</span>(<span class="tok-str">&quot;txt&quot;</span>)).collect();</code></pre>
 <div class="table-wrap"><table><thead><tr><th>Method</th><th>Effect</th></tr></thead><tbody><tr><td><code>includeDirectories()</code></td><td>folders too (by default only files)</td></tr><tr><td><code>includeHidden(false)</code></td><td>skip hidden items (dot files, and the hidden/system flags on Windows)</td></tr><tr><td><code>sortByName()</code>, <code>sortBySize()</code>, <code>sortByLastModified()</code>, <code>sortByType()</code>, <code>descending()</code></td><td>order</td></tr><tr><td><code>directoriesFirst(boolean)</code></td><td>folders before files (default <code>true</code>)</td></tr><tr><td><code>filter(FileFilter)</code></td><td><code>NameFilter</code>, <code>SizeFilter</code>, <code>TypeFilter</code> or your own lambda</td></tr><tr><td><code>entries()</code> / <code>collect()</code> / <code>forEach(...)</code></td><td><code>FileEntry</code> records / paths / callback</td></tr></tbody></table></div>
 <h2 id="reading-and-writing">Reading and writing<a class="anchor" href="#reading-and-writing" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/read-write.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/read-write.svg" alt="The reader and writer classes of modules.reading and modules.writing, the charset, appending and what the facade uses" loading="lazy"></a><figcaption>The reader and writer classes of modules.reading and modules.writing, the charset, appending and what the facade uses</figcaption></figure>
 <pre><span class="lang">java</span><code>octo.read(path).forEachLine(<span class="tok-type">System</span>.out::println);               <span class="tok-com">// text, line by line</span>
 <span class="tok-type">List</span>&lt;<span class="tok-type">String</span>[]&gt; rows = octo.read(<span class="tok-str">&quot;data.csv&quot;</span>).filter(<span class="tok-kw">new</span> <span class="tok-type">CsvFilter</span>().withDelimiter(<span class="tok-str">&quot;;&quot;</span>)).collect();
 octo.write(<span class="tok-str">&quot;out.csv&quot;</span>).csv(rows, <span class="tok-str">&quot;;&quot;</span>);
 octo.write(<span class="tok-str">&quot;blob.bin&quot;</span>).bytes(data);</code></pre>
 <p>For more control use the modules directly: <code>modules.reading</code> (<code>WholeFileReader</code>, <code>LineReader</code>, <code>CsvReader</code>, <code>BinaryReader</code>) and <code>modules.writing</code> (<code>WholeFileWriter</code>, <code>LineWriter</code>, <code>CsvWriter</code>, <code>BinaryWriter</code>). Before 2.0 <code>WholeFileReader</code>, <code>LineReader</code>, <code>WholeFileWriter</code> and <code>LineWriter</code> were called <code>FileReader</code>, <code>BufferedReader</code>, <code>FileWriter</code> and <code>BufferedWriter</code>, like the <code>java.io</code> classes.</p>
 <h2 id="deleting">Deleting<a class="anchor" href="#deleting" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/deleting.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/deleting.svg" alt="Three ways to delete: delete for good, moveToTrash to restore later, FileDeleter for a whole tree" loading="lazy"></a><figcaption>Three ways to delete: delete for good, moveToTrash to restore later, FileDeleter for a whole tree</figcaption></figure>
 <p><code>octo.delete(path)</code> deletes for good. To let the user change their mind, use the <a href="trash.html">trash</a>.</p>
 <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Examples compiled and run by <code>DocExamplesTest</code></span>
 <nav class="pager"><a href="index.html"><small>← Previous</small>Overview</a><a class="next" href="errors.html"><small>Next →</small>Errors</a></nav>
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

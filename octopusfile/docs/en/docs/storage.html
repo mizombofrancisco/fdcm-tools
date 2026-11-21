@@ -29,17 +29,21 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Docs</a> › Storage & security</div>
 <h1>Storage: devices, clouds and network shares</h1>
+<figure><a href="../../assets/diagrams/en/storage-map.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/storage-map.svg" alt="Each kind of storage and how OctopusFile reaches it" loading="lazy"></a><figcaption>Each kind of storage and how OctopusFile reaches it</figcaption></figure>
 <h2 id="external-devices">External devices<a class="anchor" href="#external-devices" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/external-devices.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/external-devices.svg" alt="How removable drives are found on Windows and on Linux / macOS" loading="lazy"></a><figcaption>How removable drives are found on Windows and on Linux / macOS</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-kw">for</span> (<span class="tok-type">Path</span> p : <span class="tok-type">ExternalDevices</span>.listRemovable()) {          <span class="tok-com">// pen drives, memory cards, USB disks</span>
     <span class="tok-type">System</span>.out.println(<span class="tok-type">ExternalDevices</span>.volumeLabel(p) + <span class="tok-str">&quot; (&quot;</span> + <span class="tok-type">ExternalDevices</span>.fileSystemType(p) + <span class="tok-str">&quot;)&quot;</span>);
 }</code></pre>
-<p><code>isRemovable(root)</code> checks one drive. On Windows it uses the <code>volume:isRemovable</code> attribute of the file store; on Linux and macOS, mounts under <code>/media</code>, <code>/run/media</code> and <code>/Volumes</code>.</p>
+<p><code>isRemovable(root)</code> checks one drive with the <code>volume:isRemovable</code> attribute of its file store (CD/DVD drives are left out): reliable on Windows. On Linux and macOS use <code>listRemovable()</code>, which looks at the mounts under <code>/media/&lt;user&gt;</code>, <code>/run/media/&lt;user&gt;</code> and <code>/Volumes</code> (except <code>Macintosh HD</code>).</p>
 <h2 id="synced-cloud-folders">Synced cloud folders<a class="anchor" href="#synced-cloud-folders" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/cloud-folders.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/cloud-folders.svg" alt="Where the folder of each cloud app is looked for, and on which system" loading="lazy"></a><figcaption>Where the folder of each cloud app is looked for, and on which system</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-kw">for</span> (<span class="tok-type">CloudSyncFolders</span>.<span class="tok-type">CloudFolder</span> c : <span class="tok-type">CloudSyncFolders</span>.detect()) {
     <span class="tok-type">System</span>.out.println(c.name() + <span class="tok-str">&quot; -&gt; &quot;</span> + c.path());
 }</code></pre>
 <p>Finds the folders kept in sync by the official apps: OneDrive, Dropbox, Google Drive, iCloud, MEGA, Nextcloud, ownCloud, pCloud, Box and Yandex Disk. They are plain local folders.</p>
 <h2 id="webdav-clouds">WebDAV clouds<a class="anchor" href="#webdav-clouds" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/webdav.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/webdav.svg" alt="Each method, its HTTP request and the exception for each error" loading="lazy"></a><figcaption>Each method, its HTTP request and the exception for each error</figcaption></figure>
 <p>Nextcloud, ownCloud, Box, pCloud, Yandex Disk, Koofr, NAS boxes and any WebDAV server, with <code>java.net.http</code>.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">WebDavStorage</span> dav = <span class="tok-kw">new</span> <span class="tok-type">WebDavStorage</span>(<span class="tok-str">&quot;https://cloud.example.com/remote.php/dav/files/ana/&quot;</span>, <span class="tok-str">&quot;ana&quot;</span>, <span class="tok-str">&quot;app-password&quot;</span>.toCharArray());
 dav.testConnection();
@@ -49,10 +53,12 @@ dav.testConnection();
 dav.upload(<span class="tok-type">Path</span>.of(<span class="tok-str">&quot;report.pdf&quot;</span>), <span class="tok-str">&quot;/Documents/report.pdf&quot;</span>, bytes -&gt; { }, () -&gt; <span class="tok-kw">false</span>);</code></pre>
 <p>Also <code>mkdir</code>, <code>delete</code>, <code>move</code>, <code>download</code>. Errors are clear (<code>wrong user name or password</code>, <code>not found</code>, <code>the cloud storage is full</code>). The XML parser refuses DOCTYPEs (no XXE) and names like <code>..</code> from the server are ignored. To keep the password at rest, see <a href="vault.html"><code>CredentialVault</code></a>. For progress and cancel, use <code>TransferManager.upload/download</code> (<a href="transfers.html">transfers</a>).</p>
 <h2 id="network-shares-smb">Network shares (SMB)<a class="anchor" href="#network-shares-smb" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/smb.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/smb.svg" alt="From an address to a local path, with the program each system runs" loading="lazy"></a><figcaption>From an address to a local path, with the program each system runs</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-type">NetworkShares</span>.<span class="tok-type">Address</span> a = <span class="tok-type">NetworkShares</span>.parse(<span class="tok-str">&quot;\\\\nas\\photos&quot;</span>);   <span class="tok-com">// also //nas/photos, smb://ana@nas/photos</span>
 <span class="tok-type">Path</span> local = <span class="tok-type">NetworkShares</span>.connect(a, <span class="tok-str">&quot;ana&quot;</span>, <span class="tok-str">&quot;secret&quot;</span>.toCharArray());</code></pre>
 <p>The operating system makes the connection and OctopusFile uses the local path it produces: a UNC path on Windows (connected with the Windows API; with no user, the current session is used), <code>gio mount</code> (GVfs) on Linux, <code>mount volume</code> on macOS. The password never goes on a command line. <code>connect</code> blocks for up to about 40 s; call it outside the UI thread. <code>isAvailable(address)</code> checks without connecting.</p>
 <h2 id="one-interface-for-all-storageprovider">One interface for all — <code>StorageProvider</code><a class="anchor" href="#one-interface-for-all-storageprovider" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/storage-provider.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/storage-provider.svg" alt="The interface, its implementations and the registry" loading="lazy"></a><figcaption>The interface, its implementations and the registry</figcaption></figure>
 <p><code>LocalDiskStorage</code>, <code>ExternalDevices</code>, <code>NetworkShareStorage</code>, <code>WebDavStorage</code> and <code>InMemoryBucketStorage</code> (for tests) implement <code>StorageProvider</code>: <code>getName()</code>, <code>isAvailable()</code>, <code>openRead(path)</code>, <code>openWrite(path)</code>, <code>delete(path)</code>, <code>exists(path)</code>. <code>StorageRegistry</code> keeps providers by key, so your own (FTP, S3, …) can be plugged in:</p>
 <pre><span class="lang">java</span><code><span class="tok-type">StorageRegistry</span> registry = <span class="tok-kw">new</span> <span class="tok-type">StorageRegistry</span>();
 registry.register(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok-kw">new</span> <span class="tok-type">NetworkShareStorage</span>(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok-str">&quot;photos&quot;</span>));
@@ -62,7 +68,7 @@ registry.register(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

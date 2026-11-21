@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Documentação</a> › Armazenamento e segurança</div>
 <h1>Cofre e segredos</h1>
+<figure><a href="../../assets/diagrams/pt/vault-tools.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/vault-tools.svg" alt="Vault, EncryptionEngine ou CredentialVault: o que cada um protege e de onde vem a chave" loading="lazy"></a><figcaption>Vault, EncryptionEngine ou CredentialVault: o que cada um protege e de onde vem a chave</figcaption></figure>
 <h2 id="vault-uma-pasta-cifrada">Vault — uma pasta cifrada<a class="anchor" href="#vault-uma-pasta-cifrada" aria-label="#">#</a></h2>
 <figure><a href="../../assets/diagrams/pt/vault.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/vault.svg" alt="Da palavra-passe à chave, e de um ficheiro aos blocos cifrados no disco" loading="lazy"></a><figcaption>Da palavra-passe à chave, e de um ficheiro aos blocos cifrados no disco</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-kw">try</span> (<span class="tok-type">Vault</span> vault = <span class="tok-type">Vault</span>.create(root, <span class="tok-str">&quot;a long password&quot;</span>.toCharArray())) {
@@ -47,11 +48,13 @@
 <p><code>extract</code> escreve num novo ficheiro temporário ao lado do destino e muda-lhe o nome no fim: um ficheiro danificado ou uma chave errada nunca deixam um ficheiro parcial, e um ficheiro existente chamado <code>name.part</code> nunca é tocado. Os nomes são limpos (<code>..</code> removido), pelo que a extração nunca sai da pasta de destino.</p>
 <p><strong>Não há recuperação sem a palavra-passe.</strong> Diga-o claramente na sua interface.</p>
 <h2 id="credentialvault-segredos-em-repouso">CredentialVault — segredos em repouso<a class="anchor" href="#credentialvault-segredos-em-repouso" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/credential-vault.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/credential-vault.svg" alt="Como o ficheiro da chave é criado ou lido, e como um segredo é selado e aberto" loading="lazy"></a><figcaption>Como o ficheiro da chave é criado ou lido, e como um segredo é selado e aberto</figcaption></figure>
 <p>Guarda palavras-passe e tokens cifrados com uma chave aleatória armazenada num ficheiro privado (permissões só para o dono em sistemas POSIX, definidas quando o ficheiro é criado). Um ficheiro de chave danificado é assinalado com uma exceção e <strong>nunca é substituído</strong>: uma nova chave tornaria ilegível todos os segredos guardados. Use-o para aquilo que a sua aplicação tem de voltar a enviar mais tarde (por exemplo, uma palavra-passe de aplicação WebDAV).</p>
 <pre><span class="lang">java</span><code><span class="tok-type">CredentialVault</span> secrets = <span class="tok-kw">new</span> <span class="tok-type">CredentialVault</span>(dir.resolve(<span class="tok-str">&quot;keys&quot;</span>));
 <span class="tok-type">String</span> sealed = secrets.seal(<span class="tok-str">&quot;app password&quot;</span>.toCharArray());   <span class="tok-com">// safe to store</span>
 <span class="tok-kw">char</span>[] back = secrets.open(sealed);</code></pre>
 <h2 id="encryptionengine-um-ficheiro-uma-palavra-passe">EncryptionEngine — um ficheiro, uma palavra-passe<a class="anchor" href="#encryptionengine-um-ficheiro-uma-palavra-passe" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/encryption-engine.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/encryption-engine.svg" alt="A estrutura de um ficheiro cifrado, o formato antigo, e como a decifração protege o destino" loading="lazy"></a><figcaption>A estrutura de um ficheiro cifrado, o formato antigo, e como a decifração protege o destino</figcaption></figure>
 <p><code>OctopusFile.of().encrypt(source, target, password)</code> / <code>decrypt(...)</code>: AES-256-GCM com uma chave PBKDF2 (210 000 iterações). Desde a 1.3 o formato é em blocos de 1 MiB (<code>&quot;OFE2&quot;</code>, sal, depois <code>[length][nonce][data + tag]</code> por bloco, cada bloco autenticado com o seu número e uma marca de "último bloco"), pelo que o uso de memória se mantém pequeno para ficheiros grandes e um ficheiro cortado é detetado. Os ficheiros do formato antigo (<code>[salt][iv][ciphertext + tag]</code>) continuam a ser decifrados. O destino só aparece quando tudo foi verificado: uma palavra-passe errada não deixa nenhum ficheiro parcial e não toca num destino existente.</p>
 <blockquote><p>O desenho criptográfico foi testado (ida e volta, palavras-passe erradas, adulteração, alterações de palavra-passe interrompidas) e revisto na 1.3 (consulte <a href="security.html">Segurança</a>), mas <strong>não foi auditado de forma independente</strong>. Mande-o rever antes de confiar nele para dados de elevado valor.</p></blockquote>
 <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Exemplos compilados e executados pelo <code>DocExamplesTest</code></span>
@@ -59,7 +62,7 @@
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

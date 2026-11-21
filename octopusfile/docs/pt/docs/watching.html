@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Documentação</a> › Funcionalidades</div>
 <h1>Vigiar pastas</h1>
+<figure><a href="../../assets/diagrams/pt/watching.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/watching.svg" alt="Como os eventos de uma pasta vigiada chegam às suas callbacks, e a vigilância recursiva com o motor do módulo" loading="lazy"></a><figcaption>Como os eventos de uma pasta vigiada chegam às suas callbacks, e a vigilância recursiva com o motor do módulo</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-kw">try</span> (<span class="tok-type">WatchOperation</span> w = <span class="tok-type">OctopusFile</span>.watch(<span class="tok-str">&quot;C:/Users/ana/Downloads&quot;</span>)
         .filterExtension(<span class="tok-str">&quot;pdf&quot;</span>)
         .onCreate(e -&gt; <span class="tok-type">System</span>.out.println(<span class="tok-str">&quot;new: &quot;</span> + e.path()))
@@ -37,13 +38,13 @@
     <span class="tok-com">// ... the watcher runs in the background until close()</span>
 }</code></pre>
 <p>Callbacks: <code>onCreate</code>, <code>onModify</code>, <code>onDelete</code>, <code>onEvent</code> (todos), <code>onOverflow</code> (demasiados eventos de uma vez — volte a ler a pasta). Filtros: <code>filterExtension(&quot;pdf&quot;)</code> ou <code>filter(path -&gt; …)</code>. Cada <code>FileEvent</code> tem <code>path()</code>, <code>kind()</code> e <code>timestamp()</code>.</p>
-<p>Assente no <code>WatchService</code> do JDK: uma pasta (não as suas subpastas) por observador. As callbacks são executadas numa thread do observador.</p>
+<p>Assente no <code>WatchService</code> do JDK. A fachada vigia uma pasta (não as suas subpastas); para vigiar também as subpastas, use o módulo: <code>new FileWatcher().watch(dir, true, listener)</code> regista também as subpastas criadas depois. As callbacks são executadas numa thread do observador.</p>
 <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Exemplos compilados e executados pelo <code>DocExamplesTest</code></span>
 <nav class="pager"><a href="backup-sync.html"><small>← Anterior</small>Cópias e sincronização</a><a class="next" href="storage.html"><small>Seguinte →</small>Armazenamento</a></nav>
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

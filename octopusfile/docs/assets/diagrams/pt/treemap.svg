@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 640" width="1240" height="640" role="img" aria-label="Treemap &quot;squarified&quot;: tamanhos passam a retângulos" font-family="Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+<title>Treemap &quot;squarified&quot;: tamanhos passam a retângulos</title>
+<defs><pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.3" fill="#D4D4D4"/></pattern><filter id="shadow" x="-10%" y="-10%" width="130%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.18"/></filter><marker id="arrow-1E1E1E" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M1.5,1.5 L10,6 L1.5,10.5" fill="none" stroke="#1E1E1E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="1240" height="640" rx="18" fill="#F7F7F5"/><rect width="1240" height="640" rx="18" fill="url(#dots)"/><rect x="0.75" y="0.75" width="1238.5" height="638.5" rx="18" fill="none" stroke="#E0E0E0" stroke-width="1.5"/>
+<g><rect x="36" y="140" width="250" height="460" rx="14" fill="#EBEBEB" fill-opacity="0.38" stroke="#8F8F8F" stroke-width="1.5" stroke-dasharray="0"/><rect x="48" y="127" width="210" height="26" rx="8" fill="#8F8F8F"/><text x="62" y="144" font-size="13" font-weight="700" fill="#FFFFFF">tamanhos, maior primeiro</text></g>
+<g><rect x="326" y="140" width="330" height="460" rx="14" fill="#C7E4FF" fill-opacity="0.38" stroke="#0D8BF2" stroke-width="1.5" stroke-dasharray="0"/><rect x="338" y="127" width="58" height="26" rx="8" fill="#0D8BF2"/><text x="352" y="144" font-size="13" font-weight="700" fill="#FFFFFF">Como</text></g>
+<path d="M286,370 L324,370" fill="none" stroke="#1E1E1E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-1E1E1E)"/>
+<path d="M656,370 L694,370" fill="none" stroke="#1E1E1E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-1E1E1E)"/>
+<text x="56" y="197" font-size="13" font-weight="700" fill="#5C5C5C" text-anchor="start">[0]</text>
+<rect x="96" y="178" width="168" height="28" rx="5" fill="#C7E4FF" fill-opacity="1" stroke="#0D8BF2" stroke-width="2"/>
+<text x="274" y="198" font-size="14" font-weight="700" fill="#1E1E1E" text-anchor="start">6</text>
+<text x="56" y="255" font-size="13" font-weight="700" fill="#5C5C5C" text-anchor="start">[1]</text>
+<rect x="96" y="236" width="168" height="28" rx="5" fill="#C2F0E6" fill-opacity="1" stroke="#12A594" stroke-width="2"/>
+<text x="274" y="256" font-size="14" font-weight="700" fill="#1E1E1E" text-anchor="start">6</text>
+<text x="56" y="313" font-size="13" font-weight="700" fill="#5C5C5C" text-anchor="start">[2]</text>
+<rect x="96" y="294" width="112" height="28" rx="5" fill="#CDF3C9" fill-opacity="1" stroke="#30A46C" stroke-width="2"/>
+<text x="218" y="314" font-size="14" font-weight="700" fill="#1E1E1E" text-anchor="start">4</text>
+<text x="56" y="371" font-size="13" font-weight="700" fill="#5C5C5C" text-anchor="start">[3]</text>
+<rect x="96" y="352" width="84" height="28" rx="5" fill="#FFE88A" fill-opacity="1" stroke="#E0B400" stroke-width="2"/>
+<text x="190" y="372" font-size="14" font-weight="700" fill="#1E1E1E" text-anchor="start">3</text>
+<text x="56" y="429" font-size="13" font-weight="700" fill="#5C5C5C" text-anchor="start">[4]</text>
+<rect x="96" y="410" width="56" height="28" rx="5" fill="#FFD7AD" fill-opacity="1" stroke="#F08C00" stroke-width="2"/>
+<text x="162" y="430" font-size="14" font-weight="700" fill="#1E1E1E" text-anchor="start">2</text>
+<text x="56" y="487" font-size="13" font-weight="700" fill="#5C5C5C" text-anchor="start">[5]</text>
+<rect x="96" y="468" width="56" height="28" rx="5" fill="#FFCCE5" fill-opacity="1" stroke="#E93D82" stroke-width="2"/>
+<text x="162" y="488" font-size="14" font-weight="700" fill="#1E1E1E" text-anchor="start">2</text>
+<text x="56" y="545" font-size="13" font-weight="700" fill="#5C5C5C" text-anchor="start">[6]</text>
+<rect x="96" y="526" width="28" height="28" rx="5" fill="#E1D3FF" fill-opacity="1" stroke="#8E4EC6" stroke-width="2"/>
+<text x="134" y="546" font-size="14" font-weight="700" fill="#1E1E1E" text-anchor="start">1</text>
+<rect x="366" y="170" width="270" height="86" rx="12" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="2.5"/><text x="501" y="208.275" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="middle">Escala: área = tamanho × w·h /</text><text x="501" y="225.825" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="middle">total</text>
+<g><circle cx="352" cy="213" r="13" fill="#1E1E1E" stroke="#1E1E1E" stroke-width="2"/><text x="352" y="217" font-size="13" font-weight="800" text-anchor="middle" fill="#FFFFFF">1</text></g>
+<rect x="366" y="274" width="270" height="86" rx="12" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="2.5"/><text x="501" y="303.5" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="middle">Encher uma faixa ao longo do lado</text><text x="501" y="321.05" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="middle">mais curto enquanto a pior</text><text x="501" y="338.6" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="middle">proporção continuar a melhorar</text>
+<g><circle cx="352" cy="317" r="13" fill="#1E1E1E" stroke="#1E1E1E" stroke-width="2"/><text x="352" y="321" font-size="13" font-weight="800" text-anchor="middle" fill="#FFFFFF">2</text></g>
+<rect x="366" y="378" width="270" height="86" rx="12" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="2.5"/><text x="501" y="416.275" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="middle">Dispor a faixa, encolher a área</text><text x="501" y="433.825" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="middle">livre, repetir</text>
+<g><circle cx="352" cy="421" r="13" fill="#1E1E1E" stroke="#1E1E1E" stroke-width="2"/><text x="352" y="425" font-size="13" font-weight="800" text-anchor="middle" fill="#FFFFFF">3</text></g>
+<rect x="366" y="482" width="270" height="86" rx="12" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="2.5"/><text x="501" y="520.275" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="middle">Tamanho 0 ou negativo: sem</text><text x="501" y="537.825" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="middle">retângulo</text>
+<g><circle cx="352" cy="525" r="13" fill="#1E1E1E" stroke="#1E1E1E" stroke-width="2"/><text x="352" y="529" font-size="13" font-weight="800" text-anchor="middle" fill="#FFFFFF">4</text></g>
+<rect x="700" y="150" width="504" height="336" fill="#FFFFFF" stroke="#1E1E1E" stroke-width="2"/>
+<rect x="700.0" y="150.0" width="252.0" height="168.0" fill="#C7E4FF" stroke="#FFFFFF" stroke-width="4"/>
+<text x="826.0" y="239.0" font-size="15" font-weight="800" text-anchor="middle" fill="#1E1E1E">[0] 6</text>
+<rect x="700.0" y="318.0" width="252.0" height="168.0" fill="#C2F0E6" stroke="#FFFFFF" stroke-width="4"/>
+<text x="826.0" y="407.0" font-size="15" font-weight="800" text-anchor="middle" fill="#1E1E1E">[1] 6</text>
+<rect x="952.0" y="150.0" width="144.0" height="196.0" fill="#CDF3C9" stroke="#FFFFFF" stroke-width="4"/>
+<text x="1024.0" y="253.0" font-size="15" font-weight="800" text-anchor="middle" fill="#1E1E1E">[2] 4</text>
+<rect x="1096.0" y="150.0" width="108.0" height="196.0" fill="#FFE88A" stroke="#FFFFFF" stroke-width="4"/>
+<text x="1150.0" y="253.0" font-size="15" font-weight="800" text-anchor="middle" fill="#1E1E1E">[3] 3</text>
+<rect x="952.0" y="346.0" width="100.8" height="140.0" fill="#FFD7AD" stroke="#FFFFFF" stroke-width="4"/>
+<text x="1002.4" y="421.0" font-size="15" font-weight="800" text-anchor="middle" fill="#1E1E1E">[4] 2</text>
+<rect x="1052.8" y="346.0" width="100.8" height="140.0" fill="#FFCCE5" stroke="#FFFFFF" stroke-width="4"/>
+<text x="1103.2" y="421.0" font-size="15" font-weight="800" text-anchor="middle" fill="#1E1E1E">[5] 2</text>
+<rect x="1153.6" y="346.0" width="50.4" height="140.0" fill="#E1D3FF" stroke="#FFFFFF" stroke-width="4"/>
+<text x="1178.8" y="421.0" font-size="15" font-weight="800" text-anchor="middle" fill="#1E1E1E">[6] 1</text>
+<text x="700" y="518" font-size="13" font-weight="600" fill="#5C5C5C" text-anchor="start">O resultado real destes tamanhos numa área de 3:2.</text>
+<g filter="url(#shadow)"><rect x="700" y="540" width="504" height="76" rx="3" fill="#FFE88A"/></g><text x="714" y="564" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="start"><tspan>Cada </tspan><tspan font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12.555">Rect(x, y, w, h, index)</tspan><tspan> — </tspan><tspan font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12.555">index</tspan><tspan> aponta para a posição</tspan></text><text x="714" y="582.9" font-size="13.5" font-weight="400" fill="#1E1E1E" text-anchor="start"><tspan>em </tspan><tspan font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12.555">sizes</tspan><tspan>.</tspan></text>
+<text x="36" y="52" font-size="26" font-weight="800" fill="#1E1E1E">Treemap &quot;squarified&quot;: tamanhos passam a retângulos</text><text x="36" y="80" font-size="15" font-weight="400" fill="#5C5C5C" text-anchor="start"><tspan font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.95">TreemapLayout.squarify(sizes, x, y, w, h)</tspan><tspan> — cada área é proporcional ao tamanho, o mais quadrada possível.</tspan></text><g transform="translate(1076,30)"><rect width="128" height="28" rx="14" fill="#FFFFFF" stroke="#E0E0E0"/><circle cx="16" cy="14" r="6" fill="#F08C00"/><text x="30" y="19" font-size="12.5" font-weight="700" fill="#1E1E1E">OctopusFile</text></g>
+</svg>

@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Documentação</a> › Funcionalidades</div>
 <h1>Mudança de nome em lote</h1>
+<figure><a href="../../assets/diagrams/pt/rename-overview.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/rename-overview.svg" alt="Mudança de nome em lote: preparar, planear com pré-visualização, verificar os problemas e aplicar tudo ou nada" loading="lazy"></a><figcaption>Mudança de nome em lote: preparar, planear com pré-visualização, verificar os problemas e aplicar tudo ou nada</figcaption></figure>
 <p><code>BatchRenamer</code> muda o nome de muitos ficheiros de uma só vez. Funciona em dois passos: um <strong>plano</strong> (novos nomes e problemas, sem tocar no disco — suficientemente rápido para ser recalculado a cada tecla premida) e a <strong>aplicação</strong> (tudo ou nada).</p>
 <pre><span class="lang">java</span><code><span class="tok-type">BatchRenamer</span>.<span class="tok-type">Rule</span> rule = <span class="tok-kw">new</span> <span class="tok-type">BatchRenamer</span>.<span class="tok-type">Rule</span>();
 rule.template = <span class="tok-str">&quot;Holiday {n}&quot;</span>;  <span class="tok-com">// also {name}, {date}, {ext}</span>
@@ -41,11 +42,14 @@ rule.digits = <span class="tok-num">2</span>;
     <span class="tok-type">BatchRenamer</span>.renameAll(plan.pairs());   <span class="tok-com">// all or nothing</span>
 }</code></pre>
 <h2 id="regra">Regra<a class="anchor" href="#regra" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/rename-rule.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/rename-rule.svg" alt="A ordem pela qual a regra constrói um nome novo, passo a passo num exemplo" loading="lazy"></a><figcaption>A ordem pela qual a regra constrói um nome novo, passo a passo num exemplo</figcaption></figure>
 <p>Aplicada por esta ordem, por omissão ao nome sem a extensão:</p>
 <div class="table-wrap"><table><thead><tr><th>Campo</th><th>Efeito</th></tr></thead><tbody><tr><td><code>template</code></td><td>substitui o nome: <code>{name}</code> nome original, <code>{n}</code> contador (<code>start</code>, preenchido com zeros até <code>digits</code>), <code>{date}</code> data de modificação <code>yyyy-MM-dd</code>, <code>{ext}</code></td></tr><tr><td><code>find</code>, <code>replace</code>, <code>regex</code>, <code>matchCase</code></td><td>localizar e substituir, texto simples ou expressão regular (grupos <code>$1</code>)</td></tr><tr><td><code>prefix</code>, <code>suffix</code></td><td>acrescentar texto</td></tr><tr><td><code>letterCase</code></td><td><code>KEEP</code>, <code>LOWER</code>, <code>UPPER</code>, <code>TITLE</code></td></tr><tr><td><code>includeExtension</code></td><td>aplicar as regras também à extensão</td></tr></tbody></table></div>
 <h2 id="problemas-detetados-pelo-plano">Problemas detetados pelo plano<a class="anchor" href="#problemas-detetados-pelo-plano" aria-label="#">#</a></h2>
-<p><code>Duplicate name</code> (dois ficheiros ficariam com o mesmo nome), <code>Already exists</code> (um ficheiro cujo nome não está a ser mudado já tem esse nome), <code>Invalid characters</code>, <code>Empty name</code>, <code>Name too long</code>, <code>Invalid regular expression</code>, além da sua própria verificação: o terceiro argumento de <code>plan</code> é uma <code>Function&lt;String, String&gt;</code> que devolve um erro ou <code>null</code> (por exemplo, as regras do seu sistema operativo).</p>
+<figure><a href="../../assets/diagrams/pt/rename-problems.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/rename-problems.svg" alt="As verificações que o plano faz a cada nome novo, por ordem, e o problema que cada uma indica" loading="lazy"></a><figcaption>As verificações que o plano faz a cada nome novo, por ordem, e o problema que cada uma indica</figcaption></figure>
+<p><code>Duplicate name</code> (dois ficheiros ficariam com o mesmo nome), <code>Already exists</code> (um ficheiro cujo nome não está a ser mudado já tem esse nome), <code>Invalid characters</code>, <code>Empty name</code>, <code>Invalid name</code> (<code>.</code> e <code>..</code>), <code>Name too long</code>, <code>Invalid regular expression</code>, além da sua própria verificação: o terceiro argumento de <code>plan</code> é uma <code>Function&lt;String, String&gt;</code> que devolve um erro ou <code>null</code> (por exemplo, as regras do seu sistema operativo).</p>
 <h2 id="aplicação">Aplicação<a class="anchor" href="#aplicação" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/rename-apply.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/rename-apply.svg" alt="Como o renameAll aplica uma troca com nomes temporários e desfaz todas as mudanças quando uma falha" loading="lazy"></a><figcaption>Como o renameAll aplica uma troca com nomes temporários e desfaz todas as mudanças quando uma falha</figcaption></figure>
 <p><code>renameAll(pairs)</code> usa nomes temporários apenas onde é necessário (trocas como a → b e b → a, alterações de maiúsculas/minúsculas no Windows/macOS) e <strong>desfaz todas as mudanças de nome</strong> se uma falhar. Devolve os pares aplicados, que podem ser passados de novo em sentido inverso para desfazer.</p>
 <p>Para seleções grandes, leia os atributos uma vez com <code>BatchRenamer.prepare(files)</code> e chame <code>plan(prepared, rule, check)</code> a cada alteração: 5 000 nomes em cerca de 0,1 s.</p>
 <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Exemplos compilados e executados pelo <code>DocExamplesTest</code></span>
@@ -53,7 +57,7 @@ rule.digits = <span class="tok-num">2</span>;
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

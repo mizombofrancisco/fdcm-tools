@@ -29,23 +29,25 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Docs</a> › Features</div>
 <h1>Duplicates and hashing</h1>
-<p><code>DuplicateFinder</code> compares files by <strong>content</strong>, in three steps so that most files are never fully read: same size → same hash of the first 16 KB → same full hash.</p>
+<figure><a href="../../assets/diagrams/en/duplicates.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/duplicates.svg" alt="The three steps of DuplicateFinder — size, partial hash, full hash — down to the DuplicateGroup" loading="lazy"></a><figcaption>The three steps of DuplicateFinder — size, partial hash, full hash — down to the DuplicateGroup</figcaption></figure>
+<p><code>DuplicateFinder</code> compares files by <strong>content</strong>, in three steps so that most files are never fully read: same size → same hash of the first and last 16 KiB and the size → same full hash (files up to 32 KiB are already read whole by the partial hash, so they skip the last step).</p>
 <pre><span class="lang">java</span><code><span class="tok-type">List</span>&lt;<span class="tok-type">DuplicateGroup</span>&gt; groups = <span class="tok-kw">new</span> <span class="tok-type">DuplicateFinder</span>().minSize(<span class="tok-num">1024</span> * <span class="tok-num">1024</span>).skipHidden(<span class="tok-kw">true</span>).find(folder);
 <span class="tok-kw">for</span> (<span class="tok-type">DuplicateGroup</span> g : groups) {
     <span class="tok-type">System</span>.out.println(g.getFiles().size() + <span class="tok-str">&quot; copies, &quot;</span> + g.getWastedBytes() + <span class="tok-str">&quot; bytes can be freed&quot;</span>);
 }</code></pre>
 <p><code>find(folder, progress, cancel)</code> reports the file being processed and stops when the <code>AtomicBoolean</code> is set. <code>getWastedBytes()</code> is the space freed by keeping one copy.</p>
 <h2 id="hashing">Hashing<a class="anchor" href="#hashing" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/hashing.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/hashing.svg" alt="How FileHasher streams a file into a MessageDigest, and which parts partialHash reads" loading="lazy"></a><figcaption>How FileHasher streams a file into a MessageDigest, and which parts partialHash reads</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-type">String</span> sha256 = <span class="tok-kw">new</span> <span class="tok-type">FileHasher</span>().hash(path);          <span class="tok-com">// hex, streaming</span>
 <span class="tok-kw">boolean</span> same = <span class="tok-kw">new</span> <span class="tok-type">FileHasher</span>().matches(path, expectedHash);
-<span class="tok-type">String</span> quick = <span class="tok-kw">new</span> <span class="tok-type">FileHasher</span>().partialHash(path, size);   <span class="tok-com">// first 16 KB + size</span></code></pre>
+<span class="tok-type">String</span> quick = <span class="tok-kw">new</span> <span class="tok-type">FileHasher</span>().partialHash(path, size);   <span class="tok-com">// first and last 16 KiB + size</span></code></pre>
 <p><code>new FileHasher(&quot;SHA-1&quot;)</code> or any other <code>MessageDigest</code> algorithm also works.</p>
 <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Examples compiled and run by <code>DocExamplesTest</code></span>
 <nav class="pager"><a href="search.html"><small>← Previous</small>Search</a><a class="next" href="analysis.html"><small>Next →</small>Disk analysis</a></nav>
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

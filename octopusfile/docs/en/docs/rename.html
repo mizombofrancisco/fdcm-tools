@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Docs</a> › Features</div>
 <h1>Batch rename</h1>
+<figure><a href="../../assets/diagrams/en/rename-overview.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/rename-overview.svg" alt="Batch rename: prepare, plan with its preview, check the problems, then apply all or nothing" loading="lazy"></a><figcaption>Batch rename: prepare, plan with its preview, check the problems, then apply all or nothing</figcaption></figure>
 <p><code>BatchRenamer</code> renames many files at once. It works in two steps: a <strong>plan</strong> (new names and problems, without touching the disk — fast enough to recompute on every key press) and <strong>apply</strong> (all or nothing).</p>
 <pre><span class="lang">java</span><code><span class="tok-type">BatchRenamer</span>.<span class="tok-type">Rule</span> rule = <span class="tok-kw">new</span> <span class="tok-type">BatchRenamer</span>.<span class="tok-type">Rule</span>();
 rule.template = <span class="tok-str">&quot;Holiday {n}&quot;</span>;  <span class="tok-com">// also {name}, {date}, {ext}</span>
@@ -41,11 +42,14 @@ rule.digits = <span class="tok-num">2</span>;
     <span class="tok-type">BatchRenamer</span>.renameAll(plan.pairs());   <span class="tok-com">// all or nothing</span>
 }</code></pre>
 <h2 id="rule">Rule<a class="anchor" href="#rule" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/rename-rule.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/rename-rule.svg" alt="The order in which the rule builds a new name, step by step on an example" loading="lazy"></a><figcaption>The order in which the rule builds a new name, step by step on an example</figcaption></figure>
 <p>Applied in this order, by default to the name without its extension:</p>
 <div class="table-wrap"><table><thead><tr><th>Field</th><th>Effect</th></tr></thead><tbody><tr><td><code>template</code></td><td>replaces the name: <code>{name}</code> original name, <code>{n}</code> counter (<code>start</code>, zero-padded to <code>digits</code>), <code>{date}</code> modified date <code>yyyy-MM-dd</code>, <code>{ext}</code></td></tr><tr><td><code>find</code>, <code>replace</code>, <code>regex</code>, <code>matchCase</code></td><td>find and replace, plain text or regular expression (<code>$1</code> groups)</td></tr><tr><td><code>prefix</code>, <code>suffix</code></td><td>add text</td></tr><tr><td><code>letterCase</code></td><td><code>KEEP</code>, <code>LOWER</code>, <code>UPPER</code>, <code>TITLE</code></td></tr><tr><td><code>includeExtension</code></td><td>apply the rules to the extension too</td></tr></tbody></table></div>
 <h2 id="problems-found-by-the-plan">Problems found by the plan<a class="anchor" href="#problems-found-by-the-plan" aria-label="#">#</a></h2>
-<p><code>Duplicate name</code> (two files would get the same name), <code>Already exists</code> (a file not being renamed has that name), <code>Invalid characters</code>, <code>Empty name</code>, <code>Name too long</code>, <code>Invalid regular expression</code>, plus your own check: the third argument of <code>plan</code> is a <code>Function&lt;String, String&gt;</code> returning an error or <code>null</code> (for example the rules of your operating system).</p>
+<figure><a href="../../assets/diagrams/en/rename-problems.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/rename-problems.svg" alt="The checks the plan makes on each new name, in order, and the problem each one reports" loading="lazy"></a><figcaption>The checks the plan makes on each new name, in order, and the problem each one reports</figcaption></figure>
+<p><code>Duplicate name</code> (two files would get the same name), <code>Already exists</code> (a file not being renamed has that name), <code>Invalid characters</code>, <code>Empty name</code>, <code>Invalid name</code> (<code>.</code> and <code>..</code>), <code>Name too long</code>, <code>Invalid regular expression</code>, plus your own check: the third argument of <code>plan</code> is a <code>Function&lt;String, String&gt;</code> returning an error or <code>null</code> (for example the rules of your operating system).</p>
 <h2 id="apply">Apply<a class="anchor" href="#apply" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/rename-apply.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/rename-apply.svg" alt="How renameAll applies a swap with temporary names and undoes every rename when one fails" loading="lazy"></a><figcaption>How renameAll applies a swap with temporary names and undoes every rename when one fails</figcaption></figure>
 <p><code>renameAll(pairs)</code> uses temporary names only where needed (swaps like a → b and b → a, letter-case changes on Windows/macOS) and <strong>undoes every rename</strong> if one fails. It returns the pairs applied, which can be passed back reversed to undo.</p>
 <p>For big selections, read the attributes once with <code>BatchRenamer.prepare(files)</code> and call <code>plan(prepared, rule, check)</code> on every change: 5 000 names in about 0.1 s.</p>
 <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Examples compiled and run by <code>DocExamplesTest</code></span>
@@ -53,7 +57,7 @@ rule.digits = <span class="tok-num">2</span>;
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

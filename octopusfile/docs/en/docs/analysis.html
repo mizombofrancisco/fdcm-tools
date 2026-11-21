@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Docs</a> › Features</div>
 <h1>Disk analysis and treemap</h1>
+<figure><a href="../../assets/diagrams/en/disk-analysis.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/disk-analysis.svg" alt="What DiskAnalyzer does in its single walk and the fields of the Result" loading="lazy"></a><figcaption>What DiskAnalyzer does in its single walk and the fields of the Result</figcaption></figure>
 <p><code>DiskAnalyzer</code> walks a folder <strong>once</strong> and returns everything a "what fills my disk" screen needs. Only folders are kept in memory (not one object per file), so it handles hundreds of thousands of files.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">DiskAnalyzer</span>.<span class="tok-type">Result</span> r = <span class="tok-kw">new</span> <span class="tok-type">DiskAnalyzer</span>().top(<span class="tok-num">20</span>).analyze(folder, n -&gt; { }, <span class="tok-kw">new</span> <span class="tok-type">AtomicBoolean</span>());
 <span class="tok-type">System</span>.out.println(r.root.size() + <span class="tok-str">&quot; bytes in &quot;</span> + r.root.fileCount() + <span class="tok-str">&quot; files&quot;</span>);
@@ -41,6 +42,7 @@
 <div class="table-wrap"><table><thead><tr><th><code>Result</code> field</th><th>Content</th></tr></thead><tbody><tr><td><code>root</code></td><td>folder tree with total size, own files size and file count</td></tr><tr><td><code>largest</code></td><td>the N largest files</td></tr><tr><td><code>oldLarge</code></td><td>large files not changed for a long time (<code>old(ageMillis, minSize)</code>, default 6 months / 50 MB)</td></tr><tr><td><code>emptyFolders</code></td><td>folders without files</td></tr><tr><td><code>categories</code></td><td>bytes and files per kind (<code>DiskAnalyzer.category(name)</code> maps an extension)</td></tr><tr><td><code>cancelled</code>, <code>elapsedMillis</code></td><td>the walk was stopped / how long it took</td></tr></tbody></table></div>
 <p>Hidden items and folders like <code>node_modules</code>, <code>AppData</code>, <code>.git</code> are skipped by default (<code>skipHidden</code>, <code>skipNames</code>). The progress callback receives the number of files seen.</p>
 <h2 id="treemap-layout">Treemap layout<a class="anchor" href="#treemap-layout" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/treemap.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/treemap.svg" alt="How squarify turns sizes into rectangles, with its real output for seven sizes" loading="lazy"></a><figcaption>How squarify turns sizes into rectangles, with its real output for seven sizes</figcaption></figure>
 <p><code>TreemapLayout.squarify</code> turns sizes (largest first) into rectangles with areas proportional to the sizes and shapes close to squares — ready to draw in any UI toolkit.</p>
 <pre><span class="lang">java</span><code><span class="tok-kw">double</span>[] sizes = r.root.children().stream().mapToDouble(<span class="tok-type">DiskAnalyzer</span>.<span class="tok-type">Folder</span>::size).toArray();
 <span class="tok-type">List</span>&lt;<span class="tok-type">TreemapLayout</span>.<span class="tok-type">Rect</span>&gt; rects = <span class="tok-type">TreemapLayout</span>.squarify(sizes, <span class="tok-num">0</span>, <span class="tok-num">0</span>, <span class="tok-num">800</span>, <span class="tok-num">400</span>);
@@ -50,7 +52,7 @@
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

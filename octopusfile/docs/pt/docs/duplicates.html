@@ -29,23 +29,25 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Documentação</a> › Funcionalidades</div>
 <h1>Duplicados e hashing</h1>
-<p><code>DuplicateFinder</code> compara ficheiros pelo <strong>conteúdo</strong>, em três passos, de modo que a maioria dos ficheiros nunca chega a ser lida por inteiro: mesmo tamanho → mesmo hash dos primeiros 16 KB → mesmo hash completo.</p>
+<figure><a href="../../assets/diagrams/pt/duplicates.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/duplicates.svg" alt="Os três passos do DuplicateFinder — tamanho, hash parcial, hash completo — até ao DuplicateGroup" loading="lazy"></a><figcaption>Os três passos do DuplicateFinder — tamanho, hash parcial, hash completo — até ao DuplicateGroup</figcaption></figure>
+<p><code>DuplicateFinder</code> compara ficheiros pelo <strong>conteúdo</strong>, em três passos, de modo que a maioria dos ficheiros nunca chega a ser lida por inteiro: mesmo tamanho → mesmo hash dos primeiros e últimos 16 KiB e do tamanho → mesmo hash completo (os ficheiros até 32 KiB já são lidos inteiros pelo hash parcial, por isso saltam o último passo).</p>
 <pre><span class="lang">java</span><code><span class="tok-type">List</span>&lt;<span class="tok-type">DuplicateGroup</span>&gt; groups = <span class="tok-kw">new</span> <span class="tok-type">DuplicateFinder</span>().minSize(<span class="tok-num">1024</span> * <span class="tok-num">1024</span>).skipHidden(<span class="tok-kw">true</span>).find(folder);
 <span class="tok-kw">for</span> (<span class="tok-type">DuplicateGroup</span> g : groups) {
     <span class="tok-type">System</span>.out.println(g.getFiles().size() + <span class="tok-str">&quot; copies, &quot;</span> + g.getWastedBytes() + <span class="tok-str">&quot; bytes can be freed&quot;</span>);
 }</code></pre>
 <p><code>find(folder, progress, cancel)</code> indica o ficheiro em processamento e para quando o <code>AtomicBoolean</code> é ativado. <code>getWastedBytes()</code> é o espaço libertado ao manter apenas uma cópia.</p>
 <h2 id="hashing">Hashing<a class="anchor" href="#hashing" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/hashing.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/hashing.svg" alt="Como o FileHasher passa um ficheiro em streaming para um MessageDigest e que partes o partialHash lê" loading="lazy"></a><figcaption>Como o FileHasher passa um ficheiro em streaming para um MessageDigest e que partes o partialHash lê</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-type">String</span> sha256 = <span class="tok-kw">new</span> <span class="tok-type">FileHasher</span>().hash(path);          <span class="tok-com">// hex, streaming</span>
 <span class="tok-kw">boolean</span> same = <span class="tok-kw">new</span> <span class="tok-type">FileHasher</span>().matches(path, expectedHash);
-<span class="tok-type">String</span> quick = <span class="tok-kw">new</span> <span class="tok-type">FileHasher</span>().partialHash(path, size);   <span class="tok-com">// first 16 KB + size</span></code></pre>
+<span class="tok-type">String</span> quick = <span class="tok-kw">new</span> <span class="tok-type">FileHasher</span>().partialHash(path, size);   <span class="tok-com">// first and last 16 KiB + size</span></code></pre>
 <p><code>new FileHasher(&quot;SHA-1&quot;)</code> ou qualquer outro algoritmo de <code>MessageDigest</code> também funciona.</p>
 <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Exemplos compilados e executados pelo <code>DocExamplesTest</code></span>
 <nav class="pager"><a href="search.html"><small>← Anterior</small>Pesquisa</a><a class="next" href="analysis.html"><small>Seguinte →</small>Análise do disco</a></nav>
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

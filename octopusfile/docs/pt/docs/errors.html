@@ -35,9 +35,12 @@
 <pre><span class="lang">java</span><code><span class="tok-kw">try</span> {
     <span class="tok-type">OctopusFile</span>.of().read(dir.resolve(<span class="tok-str">&quot;missing.txt&quot;</span>)).asText();
 } <span class="tok-kw">catch</span> (<span class="tok-type">OctopusFileException</span> ex) {
-    <span class="tok-type">ErrorCodes</span> code = ex.errorCode();     <span class="tok-com">// machine readable: FILE_NOT_FOUND, ACCESS_DENIED, ...</span>
+    <span class="tok-type">ErrorCodes</span> code = ex.errorCode();     <span class="tok-com">// machine readable: READ_ERROR (the operation that failed)</span>
+    <span class="tok-type">Throwable</span> why = ex.getCause();        <span class="tok-com">// the module&#x27;s exception: here a NoSuchFileException</span>
     <span class="tok-type">String</span> message = ex.getMessage();     <span class="tok-com">// for people</span>
 }</code></pre>
+<p>A fachada dá o código <strong>da operação</strong> — <code>COPY_ERROR</code>, <code>MOVE_ERROR</code>, <code>DELETE_ERROR</code>, <code>LIST_FILE_ERROR</code>, <code>READ_ERROR</code>, <code>WRITE_ERROR</code> — e guarda a exceção do módulo como causa, por isso a razão exata (ficheiro em falta, acesso negado…) está em <code>getCause()</code>. <code>path()</code> dá o ficheiro em causa, quando existe.</p>
+<figure><a href="../../assets/diagrams/pt/error-codes.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/error-codes.svg" alt="As dez famílias de ErrorCodes e como um código viaja de um módulo até à OctopusFileException da fachada" loading="lazy"></a><figcaption>As dez famílias de ErrorCodes e como um código viaja de um módulo até à OctopusFileException da fachada</figcaption></figure>
 <p>Códigos úteis: <code>FILE_NOT_FOUND</code>, <code>PATH_NOT_FOUND</code>, <code>FILE_ALREADY_EXISTS</code>, <code>ACCESS_DENIED</code>, <code>PERMISSION_DENIED</code>, <code>NOT_A_DIRECTORY</code>, <code>INVALID_PATH</code>, <code>COPY_ERROR</code>, <code>MOVE_ERROR</code>, <code>DELETE_ERROR</code>, <code>READ_ERROR</code>, <code>WRITE_ERROR</code>, <code>OPERATION_CANCELLED</code>. As mensagens estão em inglês; traduza-as a partir do código na sua interface.</p>
 <p>Com os módulos:</p>
 <pre><span class="lang">java</span><code><span class="tok-kw">try</span> {
@@ -54,7 +57,7 @@
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

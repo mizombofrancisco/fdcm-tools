@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Docs</a> › Features</div>
 <h1>Compression (ZIP)</h1>
+<figure><a href="../../assets/diagrams/en/compression.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/compression.svg" alt="How ZipCompressionEngine compresses in streaming and extracts with zip slip protection" loading="lazy"></a><figcaption>How ZipCompressionEngine compresses in streaming and extracts with zip slip protection</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-type">OctopusFile</span>.of().compress(folder.resolve(<span class="tok-str">&quot;Project&quot;</span>), zip);
 <span class="tok-kw">for</span> (<span class="tok-type">ZipCompressionEngine</span>.<span class="tok-type">Entry</span> e : <span class="tok-type">ZipCompressionEngine</span>.list(zip)) {   <span class="tok-com">// central directory only, no extraction</span>
     <span class="tok-type">System</span>.out.println(e.name() + <span class="tok-str">&quot;  &quot;</span> + e.size());
@@ -41,7 +42,7 @@
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

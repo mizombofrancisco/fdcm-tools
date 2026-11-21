@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Docs</a> › Storage & security</div>
 <h1>Vault and secrets</h1>
+<figure><a href="../../assets/diagrams/en/vault-tools.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/vault-tools.svg" alt="Vault, EncryptionEngine or CredentialVault: what each one protects and where the key comes from" loading="lazy"></a><figcaption>Vault, EncryptionEngine or CredentialVault: what each one protects and where the key comes from</figcaption></figure>
 <h2 id="vault-an-encrypted-folder">Vault — an encrypted folder<a class="anchor" href="#vault-an-encrypted-folder" aria-label="#">#</a></h2>
 <figure><a href="../../assets/diagrams/en/vault.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/vault.svg" alt="From the password to the key, and from a file to encrypted chunks on disk" loading="lazy"></a><figcaption>From the password to the key, and from a file to encrypted chunks on disk</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-kw">try</span> (<span class="tok-type">Vault</span> vault = <span class="tok-type">Vault</span>.create(root, <span class="tok-str">&quot;a long password&quot;</span>.toCharArray())) {
@@ -47,11 +48,13 @@
 <p><code>extract</code> writes to a new temporary file next to the target and renames it at the end: a damaged file or a wrong key never leaves a partial file, and an existing file called <code>name.part</code> is never touched. Names are cleaned (<code>..</code> removed), so extraction never leaves the destination folder.</p>
 <p><strong>There is no recovery without the password.</strong> Say it clearly in your UI.</p>
 <h2 id="credentialvault-secrets-at-rest">CredentialVault — secrets at rest<a class="anchor" href="#credentialvault-secrets-at-rest" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/credential-vault.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/credential-vault.svg" alt="How the key file is created or read, and how a secret is sealed and opened" loading="lazy"></a><figcaption>How the key file is created or read, and how a secret is sealed and opened</figcaption></figure>
 <p>Keeps passwords and tokens encrypted with a random key stored in a private file (owner-only permissions on POSIX systems, set when the file is created). A damaged key file is reported with an exception and <strong>never replaced</strong>: a new key would make every saved secret unreadable. Use it for things your application must send again later (for example a WebDAV app password).</p>
 <pre><span class="lang">java</span><code><span class="tok-type">CredentialVault</span> secrets = <span class="tok-kw">new</span> <span class="tok-type">CredentialVault</span>(dir.resolve(<span class="tok-str">&quot;keys&quot;</span>));
 <span class="tok-type">String</span> sealed = secrets.seal(<span class="tok-str">&quot;app password&quot;</span>.toCharArray());   <span class="tok-com">// safe to store</span>
 <span class="tok-kw">char</span>[] back = secrets.open(sealed);</code></pre>
 <h2 id="encryptionengine-one-file-one-password">EncryptionEngine — one file, one password<a class="anchor" href="#encryptionengine-one-file-one-password" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/en/encryption-engine.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/encryption-engine.svg" alt="The layout of an encrypted file, the old format, and how decryption keeps the target safe" loading="lazy"></a><figcaption>The layout of an encrypted file, the old format, and how decryption keeps the target safe</figcaption></figure>
 <p><code>OctopusFile.of().encrypt(source, target, password)</code> / <code>decrypt(...)</code>: AES-256-GCM with a PBKDF2 key (210 000 iterations). Since 1.3 the format is in 1 MiB blocks (<code>&quot;OFE2&quot;</code>, salt, then <code>[length][nonce][data + tag]</code> per block, each block authenticated with its number and a "last block" flag), so memory use stays small for big files and a cut file is detected. Files of the old format (<code>[salt][iv][ciphertext + tag]</code>) are still decrypted. The target appears only when everything was verified: a wrong password leaves no partial file and does not touch an existing target.</p>
 <blockquote><p>The cryptographic design has been tested (round trips, wrong passwords, tampering, interrupted password changes) and reviewed in 1.3 (see <a href="security.html">Security</a>), but <strong>not independently audited</strong>. Have it reviewed before relying on it for high-value data.</p></blockquote>
 <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Examples compiled and run by <code>DocExamplesTest</code></span>
@@ -59,7 +62,7 @@
 </main>
 <aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

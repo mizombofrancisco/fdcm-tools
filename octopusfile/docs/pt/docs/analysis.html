@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Documentação</a> › Funcionalidades</div>
 <h1>Análise do disco e mapa em árvore (treemap)</h1>
+<figure><a href="../../assets/diagrams/pt/disk-analysis.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/disk-analysis.svg" alt="O que o DiskAnalyzer faz no seu único percurso e os campos do Result" loading="lazy"></a><figcaption>O que o DiskAnalyzer faz no seu único percurso e os campos do Result</figcaption></figure>
 <p><code>DiskAnalyzer</code> percorre uma pasta <strong>uma única vez</strong> e devolve tudo o que um ecrã do tipo "o que ocupa o meu disco" precisa. Só as pastas são mantidas em memória (não um objeto por ficheiro), pelo que suporta centenas de milhares de ficheiros.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">DiskAnalyzer</span>.<span class="tok-type">Result</span> r = <span class="tok-kw">new</span> <span class="tok-type">DiskAnalyzer</span>().top(<span class="tok-num">20</span>).analyze(folder, n -&gt; { }, <span class="tok-kw">new</span> <span class="tok-type">AtomicBoolean</span>());
 <span class="tok-type">System</span>.out.println(r.root.size() + <span class="tok-str">&quot; bytes in &quot;</span> + r.root.fileCount() + <span class="tok-str">&quot; files&quot;</span>);
@@ -41,6 +42,7 @@
 <div class="table-wrap"><table><thead><tr><th>Campo de <code>Result</code></th><th>Conteúdo</th></tr></thead><tbody><tr><td><code>root</code></td><td>árvore de pastas com o tamanho total, o tamanho dos ficheiros próprios e o número de ficheiros</td></tr><tr><td><code>largest</code></td><td>os N maiores ficheiros</td></tr><tr><td><code>oldLarge</code></td><td>ficheiros grandes sem alterações há muito tempo (<code>old(ageMillis, minSize)</code>, por omissão 6 meses / 50 MB)</td></tr><tr><td><code>emptyFolders</code></td><td>pastas sem ficheiros</td></tr><tr><td><code>categories</code></td><td>bytes e ficheiros por tipo (<code>DiskAnalyzer.category(name)</code> associa uma extensão a uma categoria)</td></tr><tr><td><code>cancelled</code>, <code>elapsedMillis</code></td><td>o percurso foi interrompido / quanto tempo demorou</td></tr></tbody></table></div>
 <p>Os itens ocultos e pastas como <code>node_modules</code>, <code>AppData</code>, <code>.git</code> são ignorados por omissão (<code>skipHidden</code>, <code>skipNames</code>). A callback de progresso recebe o número de ficheiros vistos.</p>
 <h2 id="disposição-do-mapa-em-árvore-treemap">Disposição do mapa em árvore (treemap)<a class="anchor" href="#disposição-do-mapa-em-árvore-treemap" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/treemap.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/treemap.svg" alt="Como o squarify transforma tamanhos em retângulos, com o resultado real para sete tamanhos" loading="lazy"></a><figcaption>Como o squarify transforma tamanhos em retângulos, com o resultado real para sete tamanhos</figcaption></figure>
 <p><code>TreemapLayout.squarify</code> transforma tamanhos (do maior para o menor) em retângulos com áreas proporcionais aos tamanhos e formas próximas de quadrados — prontos a desenhar em qualquer toolkit de interface.</p>
 <pre><span class="lang">java</span><code><span class="tok-kw">double</span>[] sizes = r.root.children().stream().mapToDouble(<span class="tok-type">DiskAnalyzer</span>.<span class="tok-type">Folder</span>::size).toArray();
 <span class="tok-type">List</span>&lt;<span class="tok-type">TreemapLayout</span>.<span class="tok-type">Rect</span>&gt; rects = <span class="tok-type">TreemapLayout</span>.squarify(sizes, <span class="tok-num">0</span>, <span class="tok-num">0</span>, <span class="tok-num">800</span>, <span class="tok-num">400</span>);
@@ -50,7 +52,7 @@
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

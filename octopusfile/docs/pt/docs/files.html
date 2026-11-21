@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Documentação</a> › Começar</div>
 <h1>Ficheiros: copiar, mover, apagar, listar, ler, escrever</h1>
+<figure><a href="../../assets/diagrams/pt/files-facade.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/files-facade.svg" alt="A fachada OctopusFile: cada chamada devolve um objeto de operação que faz o trabalho com uma classe de um módulo; as falhas tornam-se OctopusFileException" loading="lazy"></a><figcaption>A fachada OctopusFile: cada chamada devolve um objeto de operação que faz o trabalho com uma classe de um módulo; as falhas tornam-se OctopusFileException</figcaption></figure>
 <p><code>OctopusFile</code> é uma fachada fluente sobre as operações de ficheiros do dia a dia. Todos os métodos aceitam uma <code>String</code> ou um <code>Path</code>.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">OctopusFile</span> octo = <span class="tok-type">OctopusFile</span>.of();
 
@@ -39,6 +40,7 @@ octo.write(dir.resolve(<span class="tok-str">&quot;notes.txt&quot;</span>)).appe
 octo.copy(dir.resolve(<span class="tok-str">&quot;notes.txt&quot;</span>)).to(dir.resolve(<span class="tok-str">&quot;backup/notes.txt&quot;</span>));      <span class="tok-com">// creates &quot;backup&quot;</span>
 octo.move(dir.resolve(<span class="tok-str">&quot;backup/notes.txt&quot;</span>)).to(dir.resolve(<span class="tok-str">&quot;archive/notes-old.txt&quot;</span>));</code></pre>
 <h2 id="listar">Listar<a class="anchor" href="#listar" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/listing.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/listing.svg" alt="Como list(dir) lê uma pasta uma vez, escolhe, ordena e devolve registos FileEntry" loading="lazy"></a><figcaption>Como list(dir) lê uma pasta uma vez, escolhe, ordena e devolve registos FileEntry</figcaption></figure>
 <p><code>list(...)</code> lê os atributos de cada item <strong>uma só vez</strong>, juntamente com a listagem da pasta (uma chamada ao sistema para a pasta inteira no Windows), por isso ordenar e filtrar nunca voltam ao disco. 50 000 ficheiros são listados em cerca de 0,2 s com a cache já aquecida.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">List</span>&lt;<span class="tok-type">FileEntry</span>&gt; entries = octo.list(dir).includeDirectories().sortByName().entries();
 <span class="tok-kw">for</span> (<span class="tok-type">FileEntry</span> e : entries) {
@@ -48,19 +50,21 @@ octo.move(dir.resolve(<span class="tok-str">&quot;backup/notes.txt&quot;</span>)
 <span class="tok-type">List</span>&lt;<span class="tok-type">Path</span>&gt; texts = octo.list(dir).filter(<span class="tok-kw">new</span> <span class="tok-type">TypeFilter</span>(<span class="tok-str">&quot;txt&quot;</span>)).collect();</code></pre>
 <div class="table-wrap"><table><thead><tr><th>Método</th><th>Efeito</th></tr></thead><tbody><tr><td><code>includeDirectories()</code></td><td>também as pastas (por omissão, só ficheiros)</td></tr><tr><td><code>includeHidden(false)</code></td><td>ignora os itens ocultos (ficheiros começados por ponto e, no Windows, os atributos oculto/sistema)</td></tr><tr><td><code>sortByName()</code>, <code>sortBySize()</code>, <code>sortByLastModified()</code>, <code>sortByType()</code>, <code>descending()</code></td><td>ordem</td></tr><tr><td><code>directoriesFirst(boolean)</code></td><td>pastas antes dos ficheiros (por omissão <code>true</code>)</td></tr><tr><td><code>filter(FileFilter)</code></td><td><code>NameFilter</code>, <code>SizeFilter</code>, <code>TypeFilter</code> ou uma lambda sua</td></tr><tr><td><code>entries()</code> / <code>collect()</code> / <code>forEach(...)</code></td><td>registos <code>FileEntry</code> / caminhos / callback</td></tr></tbody></table></div>
 <h2 id="ler-e-escrever">Ler e escrever<a class="anchor" href="#ler-e-escrever" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/read-write.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/read-write.svg" alt="As classes de leitura e escrita de modules.reading e modules.writing, a codificação, acrescentar e o que a fachada usa" loading="lazy"></a><figcaption>As classes de leitura e escrita de modules.reading e modules.writing, a codificação, acrescentar e o que a fachada usa</figcaption></figure>
 <pre><span class="lang">java</span><code>octo.read(path).forEachLine(<span class="tok-type">System</span>.out::println);               <span class="tok-com">// text, line by line</span>
 <span class="tok-type">List</span>&lt;<span class="tok-type">String</span>[]&gt; rows = octo.read(<span class="tok-str">&quot;data.csv&quot;</span>).filter(<span class="tok-kw">new</span> <span class="tok-type">CsvFilter</span>().withDelimiter(<span class="tok-str">&quot;;&quot;</span>)).collect();
 octo.write(<span class="tok-str">&quot;out.csv&quot;</span>).csv(rows, <span class="tok-str">&quot;;&quot;</span>);
 octo.write(<span class="tok-str">&quot;blob.bin&quot;</span>).bytes(data);</code></pre>
 <p>Para mais controlo, use os módulos diretamente: <code>modules.reading</code> (<code>WholeFileReader</code>, <code>LineReader</code>, <code>CsvReader</code>, <code>BinaryReader</code>) e <code>modules.writing</code> (<code>WholeFileWriter</code>, <code>LineWriter</code>, <code>CsvWriter</code>, <code>BinaryWriter</code>). Antes da 2.0, <code>WholeFileReader</code>, <code>LineReader</code>, <code>WholeFileWriter</code> e <code>LineWriter</code> chamavam-se <code>FileReader</code>, <code>BufferedReader</code>, <code>FileWriter</code> e <code>BufferedWriter</code>, como as classes do <code>java.io</code>.</p>
 <h2 id="apagar">Apagar<a class="anchor" href="#apagar" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/deleting.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/deleting.svg" alt="Três maneiras de apagar: delete de vez, moveToTrash para repor depois, FileDeleter para uma árvore inteira" loading="lazy"></a><figcaption>Três maneiras de apagar: delete de vez, moveToTrash para repor depois, FileDeleter para uma árvore inteira</figcaption></figure>
 <p><code>octo.delete(path)</code> apaga de vez. Para permitir que o utilizador mude de ideias, use o <a href="trash.html">Lixo</a>.</p>
 <span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Exemplos compilados e executados pelo <code>DocExamplesTest</code></span>
 <nav class="pager"><a href="index.html"><small>← Anterior</small>Visão geral</a><a class="next" href="errors.html"><small>Seguinte →</small>Erros</a></nav>
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>

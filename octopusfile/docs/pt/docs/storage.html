@@ -29,17 +29,21 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Documentação</a> › Armazenamento e segurança</div>
 <h1>Armazenamento: dispositivos, nuvens e partilhas de rede</h1>
+<figure><a href="../../assets/diagrams/pt/storage-map.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/storage-map.svg" alt="Cada tipo de armazenamento e como o OctopusFile lá chega" loading="lazy"></a><figcaption>Cada tipo de armazenamento e como o OctopusFile lá chega</figcaption></figure>
 <h2 id="dispositivos-externos">Dispositivos externos<a class="anchor" href="#dispositivos-externos" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/external-devices.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/external-devices.svg" alt="Como as unidades amovíveis são encontradas no Windows e no Linux / macOS" loading="lazy"></a><figcaption>Como as unidades amovíveis são encontradas no Windows e no Linux / macOS</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-kw">for</span> (<span class="tok-type">Path</span> p : <span class="tok-type">ExternalDevices</span>.listRemovable()) {          <span class="tok-com">// pen drives, memory cards, USB disks</span>
     <span class="tok-type">System</span>.out.println(<span class="tok-type">ExternalDevices</span>.volumeLabel(p) + <span class="tok-str">&quot; (&quot;</span> + <span class="tok-type">ExternalDevices</span>.fileSystemType(p) + <span class="tok-str">&quot;)&quot;</span>);
 }</code></pre>
-<p><code>isRemovable(root)</code> verifica uma unidade. No Windows usa o atributo <code>volume:isRemovable</code> do armazenamento de ficheiros; no Linux e no macOS, as montagens em <code>/media</code>, <code>/run/media</code> e <code>/Volumes</code>.</p>
+<p><code>isRemovable(root)</code> verifica uma unidade com o atributo <code>volume:isRemovable</code> do seu armazenamento de ficheiros (as unidades de CD/DVD ficam de fora): fiável no Windows. No Linux e no macOS use <code>listRemovable()</code>, que procura as montagens em <code>/media/&lt;utilizador&gt;</code>, <code>/run/media/&lt;utilizador&gt;</code> e <code>/Volumes</code> (exceto <code>Macintosh HD</code>).</p>
 <h2 id="pastas-sincronizadas-na-nuvem">Pastas sincronizadas na nuvem<a class="anchor" href="#pastas-sincronizadas-na-nuvem" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/cloud-folders.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/cloud-folders.svg" alt="Onde a pasta de cada aplicação de nuvem é procurada, e em que sistema" loading="lazy"></a><figcaption>Onde a pasta de cada aplicação de nuvem é procurada, e em que sistema</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-kw">for</span> (<span class="tok-type">CloudSyncFolders</span>.<span class="tok-type">CloudFolder</span> c : <span class="tok-type">CloudSyncFolders</span>.detect()) {
     <span class="tok-type">System</span>.out.println(c.name() + <span class="tok-str">&quot; -&gt; &quot;</span> + c.path());
 }</code></pre>
 <p>Encontra as pastas mantidas em sincronização pelas aplicações oficiais: OneDrive, Dropbox, Google Drive, iCloud, MEGA, Nextcloud, ownCloud, pCloud, Box e Yandex Disk. São pastas locais normais.</p>
 <h2 id="nuvens-webdav">Nuvens WebDAV<a class="anchor" href="#nuvens-webdav" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/webdav.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/webdav.svg" alt="Cada método, o seu pedido HTTP e a exceção para cada erro" loading="lazy"></a><figcaption>Cada método, o seu pedido HTTP e a exceção para cada erro</figcaption></figure>
 <p>Nextcloud, ownCloud, Box, pCloud, Yandex Disk, Koofr, servidores NAS e qualquer servidor WebDAV, com <code>java.net.http</code>.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">WebDavStorage</span> dav = <span class="tok-kw">new</span> <span class="tok-type">WebDavStorage</span>(<span class="tok-str">&quot;https://cloud.example.com/remote.php/dav/files/ana/&quot;</span>, <span class="tok-str">&quot;ana&quot;</span>, <span class="tok-str">&quot;app-password&quot;</span>.toCharArray());
 dav.testConnection();
@@ -49,10 +53,12 @@ dav.testConnection();
 dav.upload(<span class="tok-type">Path</span>.of(<span class="tok-str">&quot;report.pdf&quot;</span>), <span class="tok-str">&quot;/Documents/report.pdf&quot;</span>, bytes -&gt; { }, () -&gt; <span class="tok-kw">false</span>);</code></pre>
 <p>Também <code>mkdir</code>, <code>delete</code>, <code>move</code>, <code>download</code>. Os erros são claros (<code>wrong user name or password</code>, <code>not found</code>, <code>the cloud storage is full</code>). O analisador de XML recusa DOCTYPEs (sem XXE) e nomes como <code>..</code> vindos do servidor são ignorados. Para guardar a palavra-passe em repouso, consulte <a href="vault.html"><code>CredentialVault</code></a>. Para progresso e cancelamento, use <code>TransferManager.upload/download</code> (<a href="transfers.html">transferências</a>).</p>
 <h2 id="partilhas-de-rede-smb">Partilhas de rede (SMB)<a class="anchor" href="#partilhas-de-rede-smb" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/smb.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/smb.svg" alt="De um endereço a um caminho local, com o programa que cada sistema corre" loading="lazy"></a><figcaption>De um endereço a um caminho local, com o programa que cada sistema corre</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-type">NetworkShares</span>.<span class="tok-type">Address</span> a = <span class="tok-type">NetworkShares</span>.parse(<span class="tok-str">&quot;\\\\nas\\photos&quot;</span>);   <span class="tok-com">// also //nas/photos, smb://ana@nas/photos</span>
 <span class="tok-type">Path</span> local = <span class="tok-type">NetworkShares</span>.connect(a, <span class="tok-str">&quot;ana&quot;</span>, <span class="tok-str">&quot;secret&quot;</span>.toCharArray());</code></pre>
 <p>É o sistema operativo que estabelece a ligação e o OctopusFile usa o caminho local que este produz: um caminho UNC no Windows (ligado com a API do Windows; sem utilizador, usa a sessão atual), <code>gio mount</code> (GVfs) no Linux, <code>mount volume</code> no macOS. A palavra-passe nunca vai numa linha de comandos. <code>connect</code> bloqueia até cerca de 40 s; chame-o fora da thread da interface. <code>isAvailable(address)</code> verifica sem ligar.</p>
 <h2 id="uma-interface-para-todos-storageprovider">Uma interface para todos — <code>StorageProvider</code><a class="anchor" href="#uma-interface-para-todos-storageprovider" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/storage-provider.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/storage-provider.svg" alt="A interface, as suas implementações e o registo" loading="lazy"></a><figcaption>A interface, as suas implementações e o registo</figcaption></figure>
 <p><code>LocalDiskStorage</code>, <code>ExternalDevices</code>, <code>NetworkShareStorage</code>, <code>WebDavStorage</code> e <code>InMemoryBucketStorage</code> (para testes) implementam <code>StorageProvider</code>: <code>getName()</code>, <code>isAvailable()</code>, <code>openRead(path)</code>, <code>openWrite(path)</code>, <code>delete(path)</code>, <code>exists(path)</code>. <code>StorageRegistry</code> guarda os fornecedores por chave, pelo que é possível ligar os seus próprios (FTP, S3, …):</p>
 <pre><span class="lang">java</span><code><span class="tok-type">StorageRegistry</span> registry = <span class="tok-kw">new</span> <span class="tok-type">StorageRegistry</span>();
 registry.register(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok-kw">new</span> <span class="tok-type">NetworkShareStorage</span>(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok-str">&quot;photos&quot;</span>));
@@ -62,7 +68,7 @@ registry.register(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok
 </main>
 <aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
 </div>
-<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.1</div></footer>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 2.0.2</div></footer>
 <script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
 </body>
 </html>
