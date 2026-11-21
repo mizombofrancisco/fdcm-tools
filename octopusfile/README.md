@@ -4,14 +4,14 @@ File toolkit for Java 17+ with no external libraries: transfers, trash, search i
 
 *library · Biblioteca de ficheiros para Java 17+ sem bibliotecas externas: transferências, Lixo, índice de pesquisa, mudar o nome em lote, duplicados, análise do disco, cópias por instantâneos, cofre cifrado, WebDAV/SMB, partilha local.*
 
-## Latest version · Última versão: 2.0.4
+## Latest version · Última versão: 2.1.0
 
 **Documentation online · Documentação online:** https://mizombofrancisco.github.io/fdcm-tools/octopusfile/docs/
 
-- [OctopusFile-2.0.4-docs.zip](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.4/OctopusFile-2.0.4-docs.zip)
-- [OctopusFile-2.0.4-javadoc.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.4/OctopusFile-2.0.4-javadoc.jar)
-- [OctopusFile-2.0.4.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.4/OctopusFile-2.0.4.jar)
-- [OctopusFile-2.0.4.pom](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.4/OctopusFile-2.0.4.pom)
+- [OctopusFile-2.1.0-docs.zip](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.1.0/OctopusFile-2.1.0-docs.zip)
+- [OctopusFile-2.1.0-javadoc.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.1.0/OctopusFile-2.1.0-javadoc.jar)
+- [OctopusFile-2.1.0.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.1.0/OctopusFile-2.1.0.jar)
+- [OctopusFile-2.1.0.pom](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.1.0/OctopusFile-2.1.0.pom)
 
 ## Use it · Como usar
 
@@ -20,8 +20,8 @@ Java 17 or newer, no other library needed · Java 17 ou mais recente, sem outras
 **Command line · Linha de comandos**
 
 ```
-javac -cp OctopusFile-2.0.4.jar App.java
-java -cp "OctopusFile-2.0.4.jar;." App
+javac -cp OctopusFile-2.1.0.jar App.java
+java -cp "OctopusFile-2.1.0.jar;." App
 ```
 
 On Linux and macOS use `:` instead of `;` · No Linux e no macOS use `:` em vez de `;`.
@@ -29,21 +29,21 @@ On Linux and macOS use `:` instead of `;` · No Linux e no macOS use `:` em vez 
 **Maven** (install the downloaded JAR once · instalar o JAR descarregado uma vez)
 
 ```
-mvn install:install-file -Dfile=OctopusFile-2.0.4.jar -DpomFile=OctopusFile-2.0.4.pom
+mvn install:install-file -Dfile=OctopusFile-2.1.0.jar -DpomFile=OctopusFile-2.1.0.pom
 ```
 
 ```xml
 <dependency>
   <groupId>io.github.mizombofrancisco</groupId>
   <artifactId>octopusfile</artifactId>
-  <version>2.0.4</version>
+  <version>2.1.0</version>
 </dependency>
 ```
 
 **Gradle**
 
 ```groovy
-dependencies { implementation files('libs/OctopusFile-2.0.4.jar') }
+dependencies { implementation files('libs/OctopusFile-2.1.0.jar') }
 ```
 
 **Java module · Módulo Java**: `requires com.octopusfile;`
@@ -52,6 +52,7 @@ dependencies { implementation files('libs/OctopusFile-2.0.4.jar') }
 
 | Version | Files | Notes |
 |---|---|---|
+| 2.1.0 | [OctopusFile-2.1.0-docs.zip](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.1.0/OctopusFile-2.1.0-docs.zip), [OctopusFile-2.1.0-javadoc.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.1.0/OctopusFile-2.1.0-javadoc.jar), [OctopusFile-2.1.0.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.1.0/OctopusFile-2.1.0.jar), [OctopusFile-2.1.0.pom](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.1.0/OctopusFile-2.1.0.pom) | [release notes](https://github.com/mizombofrancisco/fdcm-tools/releases/tag/octopusfile-v2.1.0) |
 | 2.0.4 | [OctopusFile-2.0.4-docs.zip](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.4/OctopusFile-2.0.4-docs.zip), [OctopusFile-2.0.4-javadoc.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.4/OctopusFile-2.0.4-javadoc.jar), [OctopusFile-2.0.4.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.4/OctopusFile-2.0.4.jar), [OctopusFile-2.0.4.pom](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.4/OctopusFile-2.0.4.pom) | [release notes](https://github.com/mizombofrancisco/fdcm-tools/releases/tag/octopusfile-v2.0.4) |
 | 2.0.3 | [OctopusFile-2.0.3-docs.zip](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.3/OctopusFile-2.0.3-docs.zip), [OctopusFile-2.0.3-javadoc.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.3/OctopusFile-2.0.3-javadoc.jar), [OctopusFile-2.0.3.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.3/OctopusFile-2.0.3.jar), [OctopusFile-2.0.3.pom](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.3/OctopusFile-2.0.3.pom) | [release notes](https://github.com/mizombofrancisco/fdcm-tools/releases/tag/octopusfile-v2.0.3) |
 | 2.0.2 | [OctopusFile-2.0.2-docs.zip](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.2/OctopusFile-2.0.2-docs.zip), [OctopusFile-2.0.2-javadoc.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.2/OctopusFile-2.0.2-javadoc.jar), [OctopusFile-2.0.2.jar](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.2/OctopusFile-2.0.2.jar), [OctopusFile-2.0.2.pom](https://github.com/mizombofrancisco/fdcm-tools/releases/download/octopusfile-v2.0.2/OctopusFile-2.0.2.pom) | [release notes](https://github.com/mizombofrancisco/fdcm-tools/releases/tag/octopusfile-v2.0.2) |
