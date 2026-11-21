@@ -61,7 +61,10 @@ jobs:
               notes="$project/$version/notes.md"
               [ -f "$notes" ] || notes=/dev/null
               echo "Creating $tag: $files"
-              target=$(git rev-parse "refs/tags/${tag}^{commit}" 2>/dev/null || echo "$GITHUB_SHA")
-              gh release create "$tag" $files --title "$name $version" --notes-file "$notes" --target "$target"
+              if git rev-parse -q --verify "refs/tags/${tag}" > /dev/null; then
+                gh release create "$tag" $files --title "$name $version" --notes-file "$notes" --verify-tag
+              else
+                gh release create "$tag" $files --title "$name $version" --notes-file "$notes" --target "$GITHUB_SHA"
+              fi
             done
           done
