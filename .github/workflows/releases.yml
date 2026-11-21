@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Create the missing Releases
         env:
@@ -47,3 +49,18 @@ jobs:
               gh release create "$tag" $files --title "$name $version" --notes-file "$notes" --target "$GITHUB_SHA"
             done
           done
+
+      - name: Point every Release at the commit of its tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          gh api "repos/${GITHUB_REPOSITORY}/releases?per_page=100" --paginate --jq '.[] | [.id, .tag_name, .target_commitish] | @tsv' |
+          while IFS="$(printf '\t')" read -r id tag target; do
+            commit=$(git rev-parse "refs/tags/${tag}^{commit}" 2>/dev/null || true)
+            if [ -n "$commit" ] && [ "$target" != "$commit" ]; then
+              echo "$tag: $target -> $commit"
+              gh api -X PATCH "repos/${GITHUB_REPOSITORY}/releases/${id}" -f target_commitish="$commit" > /dev/null
+            fi
+          done
+
