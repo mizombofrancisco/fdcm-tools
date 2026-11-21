@@ -1,0 +1,40 @@
+name: Releases
+
+# Every folder <project>/<version>/ (with a <project>/project.properties) becomes the GitHub Release
+# "<project>-v<version>" with the files of the folder; notes.md is the text of the Release.
+# Existing Releases are left as they are. Uses the token of this repository only.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  releases:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create the missing Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          for props in */project.properties; do
+            project="${props%%/*}"
+            name=$(sed -n 's/^name=//p' "$props" | tr -d '\r')
+            for version in $(ls -d "$project"/*/ 2>/dev/null | xargs -n1 basename | grep -E '^[0-9]' | sort -V); do
+              tag="${project}-v${version}"
+              if gh release view "$tag" > /dev/null 2>&1; then
+                continue
+              fi
+              files=$(find "$project/$version" -maxdepth 1 -type f ! -name notes.md | sort)
+              notes="$project/$version/notes.md"
+              [ -f "$notes" ] || notes=/dev/null
+              echo "Creating $tag: $files"
+              gh release create "$tag" $files --title "$name $version" --notes-file "$notes" --target "$GITHUB_SHA"
+            done
+          done
