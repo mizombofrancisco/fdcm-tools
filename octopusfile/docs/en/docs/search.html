@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Docs</a> › Features</div>
 <h1>Search: name index and content search</h1>
+<figure><a href="../../assets/diagrams/en/search.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/search.svg" alt="FileIndex for names (in memory, saved to a file) and ContentSearcher for what is inside the files" loading="lazy"></a><figcaption>FileIndex for names (in memory, saved to a file) and ContentSearcher for what is inside the files</figcaption></figure>
 <h2 id="instant-search-by-name-fileindex">Instant search by name — <code>FileIndex</code><a class="anchor" href="#instant-search-by-name-fileindex" aria-label="#">#</a></h2>
 <p>An in-memory index of every name under a folder. Names are stored in columns (no object per file) with an inverted index of trigrams, so a search costs the number of candidates, not the number of files.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">FileIndex</span> index = <span class="tok-kw">new</span> <span class="tok-type">FileIndex</span>(home).build(<span class="tok-kw">null</span>, <span class="tok-kw">new</span> <span class="tok-type">AtomicBoolean</span>());

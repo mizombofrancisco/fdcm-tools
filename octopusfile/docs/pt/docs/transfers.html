@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Documentação</a> › Funcionalidades</div>
 <h1>Transferências: progresso, velocidade, tempo restante, cancelar</h1>
+<figure><a href="../../assets/diagrams/pt/transfers.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/transfers.svg" alt="Uma fila, duas threads de trabalho e os estados de um Transfer" loading="lazy"></a><figcaption>Uma fila, duas threads de trabalho e os estados de um Transfer</figcaption></figure>
 <p><code>TransferManager</code> é uma fila (2 workers) para tudo o que demora. Cada tarefa é uma <code>Transfer</code> com os bytes e ficheiros concluídos, a velocidade (média móvel), o tempo restante estimado, o estado e um método <code>cancel()</code>.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">TransferManager</span> tm = <span class="tok-type">TransferManager</span>.get();
 tm.addListener(t -&gt; {

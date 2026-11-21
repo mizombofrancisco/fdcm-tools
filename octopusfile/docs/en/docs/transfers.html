@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Docs</a> › Features</div>
 <h1>Transfers: progress, speed, time left, cancel</h1>
+<figure><a href="../../assets/diagrams/en/transfers.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/en/transfers.svg" alt="One queue, two worker threads, and the states of a Transfer" loading="lazy"></a><figcaption>One queue, two worker threads, and the states of a Transfer</figcaption></figure>
 <p><code>TransferManager</code> is a queue (2 workers) for anything that takes time. Each job is a <code>Transfer</code> with bytes and files done, speed (moving average), estimated time left, state and a <code>cancel()</code> method.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">TransferManager</span> tm = <span class="tok-type">TransferManager</span>.get();
 tm.addListener(t -&gt; {

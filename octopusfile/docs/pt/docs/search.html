@@ -29,6 +29,7 @@
 <main class="content">
 <div class="crumbs"><a href="index.html">Documentação</a> › Funcionalidades</div>
 <h1>Pesquisa: índice de nomes e pesquisa no conteúdo</h1>
+<figure><a href="../../assets/diagrams/pt/search.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/search.svg" alt="FileIndex para os nomes (em memória, guardado num ficheiro) e ContentSearcher para o que está dentro dos ficheiros" loading="lazy"></a><figcaption>FileIndex para os nomes (em memória, guardado num ficheiro) e ContentSearcher para o que está dentro dos ficheiros</figcaption></figure>
 <h2 id="pesquisa-instantânea-por-nome-fileindex">Pesquisa instantânea por nome — <code>FileIndex</code><a class="anchor" href="#pesquisa-instantânea-por-nome-fileindex" aria-label="#">#</a></h2>
 <p>Um índice em memória de todos os nomes dentro de uma pasta. Os nomes são guardados em colunas (sem um objeto por ficheiro) com um índice invertido de trigramas, por isso uma pesquisa custa o número de candidatos, não o número de ficheiros.</p>
 <pre><span class="lang">java</span><code><span class="tok-type">FileIndex</span> index = <span class="tok-kw">new</span> <span class="tok-type">FileIndex</span>(home).build(<span class="tok-kw">null</span>, <span class="tok-kw">new</span> <span class="tok-type">AtomicBoolean</span>());

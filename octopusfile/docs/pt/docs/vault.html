@@ -30,6 +30,7 @@
 <div class="crumbs"><a href="index.html">Documentação</a> › Armazenamento e segurança</div>
 <h1>Cofre e segredos</h1>
 <h2 id="vault-uma-pasta-cifrada">Vault — uma pasta cifrada<a class="anchor" href="#vault-uma-pasta-cifrada" aria-label="#">#</a></h2>
+<figure><a href="../../assets/diagrams/pt/vault.svg" target="_blank" rel="noopener"><img src="../../assets/diagrams/pt/vault.svg" alt="Da palavra-passe à chave, e de um ficheiro aos blocos cifrados no disco" loading="lazy"></a><figcaption>Da palavra-passe à chave, e de um ficheiro aos blocos cifrados no disco</figcaption></figure>
 <pre><span class="lang">java</span><code><span class="tok-kw">try</span> (<span class="tok-type">Vault</span> vault = <span class="tok-type">Vault</span>.create(root, <span class="tok-str">&quot;a long password&quot;</span>.toCharArray())) {
     vault.add(contract, <span class="tok-str">&quot;Contracts/contract.pdf&quot;</span>, <span class="tok-kw">null</span>);
 }
