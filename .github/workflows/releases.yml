@@ -2,7 +2,8 @@ name: Releases
 
 # Every folder <project>/<version>/ (with a <project>/project.properties) becomes the GitHub Release
 # "<project>-v<version>" with the files of the folder; notes.md is the text of the Release.
-# Existing Releases are left as they are. Uses the token of this repository only.
+# A Release that exists only gets the files it does not have yet (nothing is replaced).
+# Uses the token of this repository only.
 
 on:
   push:
@@ -28,10 +29,18 @@ jobs:
             name=$(sed -n 's/^name=//p' "$props" | tr -d '\r')
             for version in $(ls -d "$project"/*/ 2>/dev/null | xargs -n1 basename | grep -E '^[0-9]' | sort -V); do
               tag="${project}-v${version}"
+              files=$(find "$project/$version" -maxdepth 1 -type f ! -name notes.md | sort)
               if gh release view "$tag" > /dev/null 2>&1; then
+                # already published: only add the files it does not have yet (never replace)
+                have=$(gh release view "$tag" --json assets --jq '.assets[].name')
+                for f in $files; do
+                  if ! grep -qxF "$(basename "$f")" <<< "$have"; then
+                    echo "Adding $(basename "$f") to $tag"
+                    gh release upload "$tag" "$f"
+                  fi
+                done
                 continue
               fi
-              files=$(find "$project/$version" -maxdepth 1 -type f ! -name notes.md | sort)
               notes="$project/$version/notes.md"
               [ -f "$notes" ] || notes=/dev/null
               echo "Creating $tag: $files"

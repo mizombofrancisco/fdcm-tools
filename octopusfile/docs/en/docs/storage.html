@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Storage: devices, clouds and network shares — OctopusFile</title>
+<meta name="description" content="USB devices, WebDAV clouds, SMB shares, synced folders.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>try{var t=localStorage.getItem("of-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body data-root="../../">
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16 M4 12h16 M4 18h16"/></svg></button>
+  <a class="brand" href="../../en/index.html"><img src="../../assets/logo.svg" alt=""><span>OctopusFile</span><small>docs</small></a>
+  <nav class="topnav"><a href="../../en/index.html">Home</a><a href="../../en/docs/index.html" class="active">Docs</a><a href="../../en/docs/files.html">Examples</a><a href="../../en/docs/security.html">Security</a></nav>
+  <div class="spacer"></div>
+  <div class="search">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 1 0 0-13 M15.5 15.5 20 20"/></svg>
+    <input id="q" type="search" placeholder="Search the docs" aria-label="Search the documentation" autocomplete="off">
+    <kbd>/</kbd>
+    <div class="results" id="results" role="listbox"></div>
+  </div>
+  <div class="lang-switch" title="Português"><span>EN</span><a href="../../pt/docs/storage.html" data-lang="pt" hreflang="pt">PT</a></div>
+  <button class="icon-btn" id="theme" aria-label="Light / dark" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 1 0 0-8 M12 2v2 M12 20v2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M2 12h2 M20 12h2 M4.9 19.1l1.4-1.4 M17.7 6.3l1.4-1.4"/></svg></button>
+</header>
+<div class="layout">
+<aside class="sidebar"><h4>Start</h4><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3.5 21 11 M5.5 9.5V20h5v-6h3v6h5V9.5"/></svg>Overview</a><a href="files.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z M14 3v4h4"/></svg>Files</a><a href="errors.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20z M12 10v5 M12 17.5v.5"/></svg>Errors</a><h4>Features</h4><a href="trash.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16 M9 7V4h6v3 M6 7l1 13h10l1-13"/></svg>Trash</a><a href="transfers.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13 M13 4l4 4-4 4 M20 16H7 M11 12l-4 4 4 4"/></svg>Transfers</a><a href="search.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 1 0 0-13 M15.5 15.5 20 20"/></svg>Search</a><a href="duplicates.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8h11v11H8z M5 16V5h11"/></svg>Duplicates &amp; hashing</a><a href="analysis.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9h-9z M14 2.6A8 8 0 0 1 21.4 10H14z"/></svg>Disk analysis</a><a href="rename.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z M13 7l4 4"/></svg>Batch rename</a><a href="compression.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v4H4z M5 8v12h14V8 M10 12h4"/></svg>Compression</a><a href="backup-sync.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7 M3 4v4h4 M12 7v5l3 2"/></svg>Backup &amp; sync</a><a href="watching.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z M12 9a3 3 0 1 0 0 6 3 3 0 1 0 0-6"/></svg>Watching folders</a><h4>Storage & security</h4><a href="storage.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a5 5 0 0 1-.6-10 6 6 0 0 1 11.5 1.5A4.3 4.3 0 0 1 17.5 18z"/></svg>Storage</a><a href="vault.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h12v10H6z M8.5 11V7.5a3.5 3.5 0 0 1 7 0V11"/></svg>Vault &amp; secrets</a><a href="lan-share.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14v9H5z M3 18h18"/></svg>Sharing nearby</a><a href="security.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z M9 12l2 2 4-4"/></svg>Security</a><h4>Reference</h4><a href="lts.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7 M3 4v4h4 M12 7v5l3 2"/></svg>Road to 2.0 (LTS)</a><a href="module-info.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5 M16 7l5 5-5 5 M14 4l-4 16"/></svg>module-info</a></aside>
+<main class="content">
+<div class="crumbs"><a href="index.html">Docs</a> › Storage & security</div>
+<h1>Storage: devices, clouds and network shares</h1>
+<h2 id="external-devices">External devices<a class="anchor" href="#external-devices" aria-label="#">#</a></h2>
+<pre><span class="lang">java</span><code><span class="tok-kw">for</span> (<span class="tok-type">Path</span> p : <span class="tok-type">ExternalDevices</span>.listRemovable()) {          <span class="tok-com">// pen drives, memory cards, USB disks</span>
+    <span class="tok-type">System</span>.out.println(<span class="tok-type">ExternalDevices</span>.volumeLabel(p) + <span class="tok-str">&quot; (&quot;</span> + <span class="tok-type">ExternalDevices</span>.fileSystemType(p) + <span class="tok-str">&quot;)&quot;</span>);
+}</code></pre>
+<p><code>isRemovable(root)</code> checks one drive. On Windows it uses the <code>volume:isRemovable</code> attribute of the file store; on Linux and macOS, mounts under <code>/media</code>, <code>/run/media</code> and <code>/Volumes</code>.</p>
+<h2 id="synced-cloud-folders">Synced cloud folders<a class="anchor" href="#synced-cloud-folders" aria-label="#">#</a></h2>
+<pre><span class="lang">java</span><code><span class="tok-kw">for</span> (<span class="tok-type">CloudSyncFolders</span>.<span class="tok-type">CloudFolder</span> c : <span class="tok-type">CloudSyncFolders</span>.detect()) {
+    <span class="tok-type">System</span>.out.println(c.name() + <span class="tok-str">&quot; -&gt; &quot;</span> + c.path());
+}</code></pre>
+<p>Finds the folders kept in sync by the official apps: OneDrive, Dropbox, Google Drive, iCloud, MEGA, Nextcloud, ownCloud, pCloud, Box and Yandex Disk. They are plain local folders.</p>
+<h2 id="webdav-clouds">WebDAV clouds<a class="anchor" href="#webdav-clouds" aria-label="#">#</a></h2>
+<p>Nextcloud, ownCloud, Box, pCloud, Yandex Disk, Koofr, NAS boxes and any WebDAV server, with <code>java.net.http</code>.</p>
+<pre><span class="lang">java</span><code><span class="tok-type">WebDavStorage</span> dav = <span class="tok-kw">new</span> <span class="tok-type">WebDavStorage</span>(<span class="tok-str">&quot;https://cloud.example.com/remote.php/dav/files/ana/&quot;</span>, <span class="tok-str">&quot;ana&quot;</span>, <span class="tok-str">&quot;app-password&quot;</span>.toCharArray());
+dav.testConnection();
+<span class="tok-kw">for</span> (<span class="tok-type">WebDavStorage</span>.<span class="tok-type">Entry</span> e : dav.list(<span class="tok-str">&quot;/Documents&quot;</span>)) {
+    <span class="tok-type">System</span>.out.println(e.name() + (e.directory() ? <span class="tok-str">&quot;/&quot;</span> : <span class="tok-str">&quot;&quot;</span>));
+}
+dav.upload(<span class="tok-type">Path</span>.of(<span class="tok-str">&quot;report.pdf&quot;</span>), <span class="tok-str">&quot;/Documents/report.pdf&quot;</span>, bytes -&gt; { }, () -&gt; <span class="tok-kw">false</span>);</code></pre>
+<p>Also <code>mkdir</code>, <code>delete</code>, <code>move</code>, <code>download</code>. Errors are clear (<code>wrong user name or password</code>, <code>not found</code>, <code>the cloud storage is full</code>). The XML parser refuses DOCTYPEs (no XXE) and names like <code>..</code> from the server are ignored. To keep the password at rest, see <a href="vault.html"><code>CredentialVault</code></a>. For progress and cancel, use <code>TransferManager.upload/download</code> (<a href="transfers.html">transfers</a>).</p>
+<h2 id="network-shares-smb">Network shares (SMB)<a class="anchor" href="#network-shares-smb" aria-label="#">#</a></h2>
+<pre><span class="lang">java</span><code><span class="tok-type">NetworkShares</span>.<span class="tok-type">Address</span> a = <span class="tok-type">NetworkShares</span>.parse(<span class="tok-str">&quot;\\\\nas\\photos&quot;</span>);   <span class="tok-com">// also //nas/photos, smb://ana@nas/photos</span>
+<span class="tok-type">Path</span> local = <span class="tok-type">NetworkShares</span>.connect(a, <span class="tok-str">&quot;ana&quot;</span>, <span class="tok-str">&quot;secret&quot;</span>.toCharArray());</code></pre>
+<p>The operating system makes the connection and OctopusFile uses the local path it produces: a UNC path on Windows (<code>net use</code> when a user is given), <code>gio mount</code> (GVfs) on Linux, <code>mount volume</code> on macOS. <code>connect</code> blocks for up to about 40 s; call it outside the UI thread. <code>isAvailable(address)</code> checks without connecting.</p>
+<h2 id="one-interface-for-all-storageprovider">One interface for all — <code>StorageProvider</code><a class="anchor" href="#one-interface-for-all-storageprovider" aria-label="#">#</a></h2>
+<p><code>LocalDiskStorage</code>, <code>ExternalDevices</code>, <code>NetworkShareStorage</code>, <code>WebDavStorage</code> and <code>InMemoryBucketStorage</code> (for tests) implement <code>StorageProvider</code>: <code>getName()</code>, <code>isAvailable()</code>, <code>openRead(path)</code>, <code>openWrite(path)</code>, <code>delete(path)</code>, <code>exists(path)</code>. <code>StorageRegistry</code> keeps providers by key, so your own (FTP, S3, …) can be plugged in:</p>
+<pre><span class="lang">java</span><code><span class="tok-type">StorageRegistry</span> registry = <span class="tok-kw">new</span> <span class="tok-type">StorageRegistry</span>();
+registry.register(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok-kw">new</span> <span class="tok-type">NetworkShareStorage</span>(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok-str">&quot;photos&quot;</span>));
+<span class="tok-kw">try</span> (<span class="tok-type">InputStream</span> in = registry.openRead(<span class="tok-str">&quot;nas&quot;</span>, <span class="tok-str">&quot;2026/beach.jpg&quot;</span>)) { ... }</code></pre>
+<span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Examples compiled and run by <code>DocExamplesTest</code></span>
+<nav class="pager"><a href="watching.html"><small>← Previous</small>Watching folders</a><a class="next" href="vault.html"><small>Next →</small>Vault &amp; secrets</a></nav>
+</main>
+<aside class="toc"><h5>On this page</h5><nav id="toc-list"></nav></aside>
+</div>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 1.4.1</div></footer>
+<script src="../../assets/search-en.js"></script><script src="../../assets/app.js"></script>
+</body>
+</html>

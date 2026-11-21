@@ -4,9 +4,9 @@ The tools, applications and libraries of **Francisco D. C. Mizombo**, ready to d
 
 As ferramentas, aplicações e bibliotecas de **Francisco D. C. Mizombo**, prontas a descarregar.
 
-| Tool · Ferramenta | Kind · Tipo | Description | Descrição | Latest · Última |
-|---|---|---|---|---|
-| [OctopusFile](octopusfile/README.md) | library | File toolkit for Java 17+ with no external libraries: transfers, trash, search index, batch rename, duplicates, disk analysis, snapshot backups, encrypted vault, WebDAV/SMB, LAN sharing. | Biblioteca de ficheiros para Java 17+ sem bibliotecas externas: transferências, Lixo, índice de pesquisa, mudar o nome em lote, duplicados, análise do disco, cópias por instantâneos, cofre cifrado, WebDAV/SMB, partilha local. | [1.4.1](https://github.com/mizombofrancisco/fdcm-tools/releases/tag/octopusfile-v1.4.1) |
+| Tool · Ferramenta | Kind · Tipo | Description | Descrição | Latest · Última | Docs |
+|---|---|---|---|---|---|
+| [OctopusFile](octopusfile/README.md) | library | File toolkit for Java 17+ with no external libraries: transfers, trash, search index, batch rename, duplicates, disk analysis, snapshot backups, encrypted vault, WebDAV/SMB, LAN sharing. | Biblioteca de ficheiros para Java 17+ sem bibliotecas externas: transferências, Lixo, índice de pesquisa, mudar o nome em lote, duplicados, análise do disco, cópias por instantâneos, cofre cifrado, WebDAV/SMB, partilha local. | [1.4.1](https://github.com/mizombofrancisco/fdcm-tools/releases/tag/octopusfile-v1.4.1) | [EN · PT](https://mizombofrancisco.github.io/fdcm-tools/octopusfile/docs/) |
 
 Every version is a [Release](https://github.com/mizombofrancisco/fdcm-tools/releases) named `<tool>-v<version>`.
 Cada versão é um [Release](https://github.com/mizombofrancisco/fdcm-tools/releases) chamado `<ferramenta>-v<versão>`.

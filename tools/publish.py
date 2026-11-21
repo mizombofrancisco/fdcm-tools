@@ -7,6 +7,11 @@ Adds one version of a project to fdcm-tools and rebuilds the catalog (README.md)
 
     python tools/publish.py --catalog          (only rebuild README.md and the project pages)
 
+    python tools/publish.py --project octopusfile --version 1.4.1 --add --files OctopusFile-1.4.1-docs.zip
+                                               (adds files to a published version; existing files are never replaced)
+    python tools/publish.py --project octopusfile --site ../octopusfile/OctopusFile/docs/site
+                                               (the documentation website shown online: <project>/docs/)
+
 The files go to <project>/<version>/ with notes.md (the section of that version in the CHANGELOG).
 On push, .github/workflows/releases.yml turns every new <project>/<version>/ folder into the GitHub
 Release "<project>-v<version>". A version that is already here is never replaced (use a new version).
@@ -65,6 +70,11 @@ def release_page(project, version):
     return 'https://github.com/%s/releases/tag/%s-v%s' % (REPO, project, version)
 
 
+def pages(project):
+    owner, repo = REPO.split('/')
+    return 'https://%s.github.io/%s/%s/docs/' % (owner, repo, project)
+
+
 def files_of(project, version):
     d = os.path.join(ROOT, project, version)
     return sorted(f for f in os.listdir(d) if f != 'notes.md')
@@ -78,6 +88,8 @@ def project_page(name, props, versions):
         latest = versions[0]
         main_jar = next((f for f in files_of(name, latest) if f.endswith('.jar') and '-javadoc' not in f), None)
         lines += ['## Latest version · Última versão: %s' % latest, '']
+        if os.path.isfile(os.path.join(ROOT, name, 'docs', 'index.html')):
+            lines += ['**Documentation online · Documentação online:** %s' % pages(name), '']
         for f in files_of(name, latest):
             lines.append('- [%s](%s)' % (f, download(name, latest, f)))
         lines.append('')
@@ -117,10 +129,12 @@ def catalog():
         open(os.path.join(ROOT, name, 'README.md'), 'w', encoding='utf-8', newline='\n').write(
             project_page(name, props, versions))
         latest = versions[0] if versions else '—'
-        rows.append('| [%s](%s/README.md) | %s | %s | %s | %s |' % (
+        docs = os.path.isfile(os.path.join(ROOT, name, 'docs', 'index.html'))
+        rows.append('| [%s](%s/README.md) | %s | %s | %s | %s | %s |' % (
             props.get('name', name), name, props.get('kind', 'tool'), props.get('description', ''),
             props.get('description_pt', ''),
-            '[%s](%s)' % (latest, release_page(name, latest)) if versions else '—'))
+            '[%s](%s)' % (latest, release_page(name, latest)) if versions else '—',
+            '[EN · PT](%s)' % pages(name) if docs else '—'))
     readme = '\n'.join([
         '# FDCM Tools',
         '',
@@ -128,8 +142,8 @@ def catalog():
         '',
         'As ferramentas, aplicações e bibliotecas de **Francisco D. C. Mizombo**, prontas a descarregar.',
         '',
-        '| Tool · Ferramenta | Kind · Tipo | Description | Descrição | Latest · Última |',
-        '|---|---|---|---|---|',
+        '| Tool · Ferramenta | Kind · Tipo | Description | Descrição | Latest · Última | Docs |',
+        '|---|---|---|---|---|---|',
     ] + rows + [
         '',
         'Every version is a [Release](https://github.com/%s/releases) named `<tool>-v<version>`.' % REPO,
@@ -140,6 +154,33 @@ def catalog():
     ])
     open(os.path.join(ROOT, 'README.md'), 'w', encoding='utf-8', newline='\n').write(readme)
     print('catalog:', len(rows), 'tool(s)')
+
+
+def add(args):
+    target = os.path.join(ROOT, args.project, args.version)
+    if not os.path.isdir(target):
+        sys.exit('%s %s is not published yet' % (args.project, args.version))
+    for f in args.files:
+        name = os.path.basename(f)
+        if f.endswith('-sources.jar'):
+            sys.exit('Source code is never published here: ' + f)
+        if os.path.exists(os.path.join(target, name)):
+            sys.exit('%s is already in %s %s (files are never replaced)' % (name, args.project, args.version))
+        shutil.copy2(f, target)
+        print('added', name, '->', os.path.relpath(target, ROOT))
+    catalog()
+
+
+def site(args):
+    target = os.path.join(ROOT, args.project, 'docs')
+    if not os.path.isfile(os.path.join(args.site, 'index.html')):
+        sys.exit('Not a website folder (no index.html): ' + args.site)
+    if os.path.isdir(target):
+        shutil.rmtree(target)
+    shutil.copytree(args.site, target)
+    open(os.path.join(ROOT, '.nojekyll'), 'w').close()  # GitHub Pages serves the files as they are
+    print('website ->', os.path.relpath(target, ROOT))
+    catalog()
 
 
 def publish(args):
@@ -171,9 +212,15 @@ if __name__ == '__main__':
     ap.add_argument('--files', nargs='*', default=[])
     ap.add_argument('--changelog')
     ap.add_argument('--catalog', action='store_true')
+    ap.add_argument('--add', action='store_true')
+    ap.add_argument('--site')
     a = ap.parse_args()
     if a.catalog:
         catalog()
+    elif a.project and a.site:
+        site(a)
+    elif a.project and a.version and a.files and a.add:
+        add(a)
     elif a.project and a.version and a.files:
         publish(a)
     else:

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partilha local (rede local) — OctopusFile</title>
+<meta name="description" content="Transferências cifradas entre computadores da rede local.">
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/style.css">
+<script>try{var t=localStorage.getItem("of-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body data-root="../../">
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16 M4 12h16 M4 18h16"/></svg></button>
+  <a class="brand" href="../../pt/index.html"><img src="../../assets/logo.svg" alt=""><span>OctopusFile</span><small>documentação</small></a>
+  <nav class="topnav"><a href="../../pt/index.html">Início</a><a href="../../pt/docs/index.html" class="active">Documentação</a><a href="../../pt/docs/files.html">Exemplos</a><a href="../../pt/docs/security.html">Segurança</a></nav>
+  <div class="spacer"></div>
+  <div class="search">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 1 0 0-13 M15.5 15.5 20 20"/></svg>
+    <input id="q" type="search" placeholder="Pesquisar na documentação" aria-label="Pesquisar na documentação" autocomplete="off">
+    <kbd>/</kbd>
+    <div class="results" id="results" role="listbox"></div>
+  </div>
+  <div class="lang-switch" title="English"><span>PT</span><a href="../../en/docs/lan-share.html" data-lang="en" hreflang="en">EN</a></div>
+  <button class="icon-btn" id="theme" aria-label="Claro / escuro" title="Claro / escuro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 1 0 0-8 M12 2v2 M12 20v2 M4.9 4.9l1.4 1.4 M17.7 17.7l1.4 1.4 M2 12h2 M20 12h2 M4.9 19.1l1.4-1.4 M17.7 6.3l1.4-1.4"/></svg></button>
+</header>
+<div class="layout">
+<aside class="sidebar"><h4>Começar</h4><a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3.5 21 11 M5.5 9.5V20h5v-6h3v6h5V9.5"/></svg>Visão geral</a><a href="files.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h8l4 4v14H6z M14 3v4h4"/></svg>Ficheiros</a><a href="errors.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20z M12 10v5 M12 17.5v.5"/></svg>Erros</a><h4>Funcionalidades</h4><a href="trash.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16 M9 7V4h6v3 M6 7l1 13h10l1-13"/></svg>Lixo</a><a href="transfers.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13 M13 4l4 4-4 4 M20 16H7 M11 12l-4 4 4 4"/></svg>Transferências</a><a href="search.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 1 0 0-13 M15.5 15.5 20 20"/></svg>Pesquisa</a><a href="duplicates.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8h11v11H8z M5 16V5h11"/></svg>Duplicados e hashes</a><a href="analysis.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9h-9z M14 2.6A8 8 0 0 1 21.4 10H14z"/></svg>Análise do disco</a><a href="rename.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z M13 7l4 4"/></svg>Mudar o nome em lote</a><a href="compression.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v4H4z M5 8v12h14V8 M10 12h4"/></svg>Compressão</a><a href="backup-sync.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7 M3 4v4h4 M12 7v5l3 2"/></svg>Cópias e sincronização</a><a href="watching.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z M12 9a3 3 0 1 0 0 6 3 3 0 1 0 0-6"/></svg>Vigiar pastas</a><h4>Armazenamento e segurança</h4><a href="storage.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a5 5 0 0 1-.6-10 6 6 0 0 1 11.5 1.5A4.3 4.3 0 0 1 17.5 18z"/></svg>Armazenamento</a><a href="vault.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h12v10H6z M8.5 11V7.5a3.5 3.5 0 0 1 7 0V11"/></svg>Cofre e segredos</a><a href="lan-share.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14v9H5z M3 18h18"/></svg>Partilha local</a><a href="security.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z M9 12l2 2 4-4"/></svg>Segurança</a><h4>Referência</h4><a href="lts.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7 M3 4v4h4 M12 7v5l3 2"/></svg>Caminho para a 2.0 (LTS)</a><a href="module-info.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5 M16 7l5 5-5 5 M14 4l-4 16"/></svg>module-info</a></aside>
+<main class="content">
+<div class="crumbs"><a href="index.html">Documentação</a> › Armazenamento e segurança</div>
+<h1>Partilha local (rede local)</h1>
+<p>Envie ficheiros e pastas para outro computador na mesma rede — sem internet, sem nuvem, sem biblioteca externa.</p>
+<pre><span class="lang">java</span><code><span class="tok-com">// receiving computer</span>
+<span class="tok-kw">try</span> (<span class="tok-type">LanShare</span> receiver = <span class="tok-kw">new</span> <span class="tok-type">LanShare</span>(<span class="tok-str">&quot;Ana&#x27;s laptop&quot;</span>, in -&gt; {
+    <span class="tok-type">System</span>.out.println(in.sender() + <span class="tok-str">&quot; sends &quot;</span> + in.names() + <span class="tok-str">&quot; - code &quot;</span> + in.code());
+    <span class="tok-kw">new</span> <span class="tok-type">Thread</span>(() -&gt; {
+        <span class="tok-kw">try</span> {
+            in.accept(inbox, <span class="tok-kw">null</span>, () -&gt; <span class="tok-kw">false</span>);   <span class="tok-com">// or in.decline()</span>
+        } <span class="tok-kw">catch</span> (<span class="tok-type">IOException</span> ex) {
+            ex.printStackTrace();
+        }
+    }).start();
+}, <span class="tok-kw">null</span>)) {                                        <span class="tok-com">// null = all network interfaces</span>
+    <span class="tok-com">// ...</span>
+}
+
+<span class="tok-com">// sending computer</span>
+<span class="tok-kw">try</span> (<span class="tok-type">LanShare</span> lan = <span class="tok-kw">new</span> <span class="tok-type">LanShare</span>(<span class="tok-str">&quot;Office PC&quot;</span>, <span class="tok-kw">null</span>, <span class="tok-kw">null</span>)) {   <span class="tok-com">// no handler: only looks for computers</span>
+    <span class="tok-type">LanShare</span>.<span class="tok-type">Peer</span> peer = lan.peers().get(<span class="tok-num">0</span>);
+    <span class="tok-type">LanShare</span>.send(peer, <span class="tok-str">&quot;Office PC&quot;</span>, <span class="tok-type">List</span>.of(photo), code -&gt; <span class="tok-type">System</span>.out.println(<span class="tok-str">&quot;Code: &quot;</span> + code), <span class="tok-kw">null</span>, () -&gt; <span class="tok-kw">false</span>);
+}</code></pre>
+<h2 id="como-funciona">Como funciona<a class="anchor" href="#como-funciona" aria-label="#">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th>Passo</th><th></th></tr></thead><tbody><tr><td>Descoberta</td><td>os computadores que aceitam ficheiros anunciam-se por difusão UDP na porta 47821 a cada 3 s; <code>peers()</code> lista os que foram vistos nos últimos 12 s</td></tr><tr><td>Troca de chaves</td><td>X25519 por ligação (uma chave nova de cada vez); o emissor envia primeiro um compromisso (um hash da chave), recebe a chave do recetor e só então revela a sua</td></tr><tr><td>Cifra</td><td>AES-256-GCM por trama de 64 KB, nonce = sentido + contador (nunca reutilizado)</td></tr><tr><td>Confirmação</td><td>os dois lados obtêm o mesmo código de confirmação de 6 dígitos, derivado do segredo partilhado: se os códigos coincidirem, não há ninguém no meio. Graças ao compromisso, um computador no meio não pode procurar chaves que deem o mesmo código nos dois lados: tem uma hipótese num milhão</td></tr><tr><td>Consentimento</td><td>o recetor recebe um <code>Incoming</code> (emissor, nomes, tamanho total, código) e chama <code>accept</code> ou <code>decline</code>; sem resposta em 2 minutos, a transferência é recusada</td></tr><tr><td>Proteção</td><td>os nomes são limpos (<code>..</code>, unidades, caracteres inválidos, nomes de dispositivo do Windows como <code>CON</code> ou <code>NUL</code>, pontos finais), os ficheiros vão para <code>inbox</code> com nomes livres (<code>photo (2).jpg</code>), escritos primeiro num novo ficheiro <code>.part</code> oculto (nunca num existente)</td></tr><tr><td>Limites</td><td>no máximo 4 ligações de entrada em simultâneo (<code>MAX_SESSIONS</code>), 15 s para concluir o handshake, os ficheiros têm de caber no espaço livre de <code>inbox</code></td></tr><tr><td>Versões</td><td>protocolo 2 desde o OctopusFile 1.3; um computador com o protocolo 1 (FileExp 3.8 e anteriores) continua na lista de <code>peers()</code>, e enviar para ele falha com "uses an older version of the sharing: update it"</td></tr></tbody></table></div>
+<p>O <code>handler</code> é chamado numa thread de rede: mostre a sua pergunta na thread da interface e chame <code>accept</code> a partir de uma thread de trabalho (bloqueia até tudo ser recebido). Progresso: os argumentos <code>LongConsumer</code> de <code>send</code> e <code>accept</code>.</p>
+<p><strong>Firewall:</strong> na primeira vez que um computador fica à escuta, o Windows pode pedir para permitir a aplicação em redes privadas. Inicie o <code>LanShare</code> só quando o utilizador ativar a partilha.</p>
+<blockquote><p>Tal como o cofre, o protocolo está testado (ida e volta byte a byte, mesmo código nos dois lados, recusas, ligações estranhas, uma chave que não corresponde ao seu compromisso, demasiadas ligações), mas não foi auditado de forma independente. Consulte <a href="security.html">Segurança</a>.</p></blockquote>
+<span class="verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Exemplos compilados e executados pelo <code>DocExamplesTest</code></span>
+<nav class="pager"><a href="vault.html"><small>← Anterior</small>Cofre e segredos</a><a class="next" href="security.html"><small>Seguinte →</small>Segurança</a></nav>
+</main>
+<aside class="toc"><h5>Nesta página</h5><nav id="toc-list"></nav></aside>
+</div>
+<footer class="footer"><div class="made">© 2026 Muendu Studio</div><div>Powered by Wonetino Group and Muendu Studio · OctopusFile 1.4.1</div></footer>
+<script src="../../assets/search-pt.js"></script><script src="../../assets/app.js"></script>
+</body>
+</html>
