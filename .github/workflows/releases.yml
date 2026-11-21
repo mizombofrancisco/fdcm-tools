@@ -21,6 +21,21 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Recreate Releases that point at another commit than their tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # after a history rewrite a Release can still name the old commit; its files are all in this
+          # repository, so it is deleted (the tag is kept) and created again by the next step
+          gh api "repos/${GITHUB_REPOSITORY}/releases?per_page=100" --paginate --jq '.[] | [.tag_name, .target_commitish] | @tsv' |
+          while IFS="$(printf '	')" read -r tag target; do
+            commit=$(git rev-parse "refs/tags/${tag}^{commit}" 2>/dev/null || true)
+            if [ -n "$commit" ] && [ "$target" != "$commit" ] && [ -d "${tag%-v*}/${tag##*-v}" ]; then
+              echo "Recreating $tag ($target -> $commit)"
+              gh release delete "$tag" --yes
+            fi
+          done
+
       - name: Create the missing Releases
         env:
           GH_TOKEN: ${{ github.token }}
@@ -46,21 +61,7 @@ jobs:
               notes="$project/$version/notes.md"
               [ -f "$notes" ] || notes=/dev/null
               echo "Creating $tag: $files"
-              gh release create "$tag" $files --title "$name $version" --notes-file "$notes" --target "$GITHUB_SHA"
+              target=$(git rev-parse "refs/tags/${tag}^{commit}" 2>/dev/null || echo "$GITHUB_SHA")
+              gh release create "$tag" $files --title "$name $version" --notes-file "$notes" --target "$target"
             done
           done
-
-      - name: Point every Release at the commit of its tag
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -e
-          gh api "repos/${GITHUB_REPOSITORY}/releases?per_page=100" --paginate --jq '.[] | [.id, .tag_name, .target_commitish] | @tsv' |
-          while IFS="$(printf '\t')" read -r id tag target; do
-            commit=$(git rev-parse "refs/tags/${tag}^{commit}" 2>/dev/null || true)
-            if [ -n "$commit" ] && [ "$target" != "$commit" ]; then
-              echo "$tag: $target -> $commit"
-              gh api -X PATCH "repos/${GITHUB_REPOSITORY}/releases/${id}" -f target_commitish="$commit" > /dev/null
-            fi
-          done
-
