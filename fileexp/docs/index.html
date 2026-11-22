@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FileExp — documentation · documentação</title>
+<link rel="icon" href="assets/logo.png" type="image/png">
+<link rel="stylesheet" href="assets/style.css">
+<script>try{var t=localStorage.getItem("of-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<script>
+(function () {
+  var lang = null;
+  try { lang = localStorage.getItem("fe-lang"); } catch (e) { /* no storage */ }
+  if (!lang) { lang = (navigator.language || "en").toLowerCase().indexOf("pt") === 0 ? "pt" : "en"; }
+  location.replace(lang + "/index.html");
+})();
+</script>
+</head>
+<body>
+<main class="picker">
+  <div>
+    <img class="logo" src="assets/logo.png" alt="FileExp">
+    <h1><span class="grad">FileExp</span></h1>
+    <p>Choose your language · Escolha o idioma</p>
+    <div class="cta">
+      <a class="btn primary" href="en/index.html" data-lang="en">English</a>
+      <a class="btn" href="pt/index.html" data-lang="pt">Português</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>
